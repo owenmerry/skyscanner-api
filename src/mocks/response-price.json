@@ -1,0 +1,164 @@
+{
+  "status": "RESULT_STATUS_COMPLETE",
+  "content": {
+    "results": {
+      "quotes": {
+        "{bl}:202209122139*D*LHR*EDI*20230831*wauk*BA": {
+          "minPrice": { "amount": "26", "unit": "PRICE_UNIT_WHOLE" },
+          "isDirect": true,
+          "outboundLeg": {
+            "originPlaceId": "95565050",
+            "destinationPlaceId": "95673668",
+            "departureDateTime": {
+              "year": 2023,
+              "month": 8,
+              "day": 31,
+              "hour": 0,
+              "minute": 0,
+              "second": 0
+            },
+            "quoteCreationTimestamp": "1663018740",
+            "marketingCarrierId": "-32480"
+          },
+          "inboundLeg": {
+            "originPlaceId": "",
+            "destinationPlaceId": "",
+            "departureDateTime": {
+              "year": 0,
+              "month": 0,
+              "day": 0,
+              "hour": 0,
+              "minute": 0,
+              "second": 0
+            },
+            "quoteCreationTimestamp": "0",
+            "marketingCarrierId": ""
+          }
+        },
+        "{bl}:202209142251*I*LHR*EDI*20221119*ctuk*EI": {
+          "minPrice": { "amount": "54", "unit": "PRICE_UNIT_WHOLE" },
+          "isDirect": false,
+          "outboundLeg": {
+            "originPlaceId": "95565050",
+            "destinationPlaceId": "95673668",
+            "departureDateTime": {
+              "year": 2022,
+              "month": 11,
+              "day": 19,
+              "hour": 0,
+              "minute": 0,
+              "second": 0
+            },
+            "quoteCreationTimestamp": "1663195860",
+            "marketingCarrierId": "-32753"
+          },
+          "inboundLeg": {
+            "originPlaceId": "",
+            "destinationPlaceId": "",
+            "departureDateTime": {
+              "year": 0,
+              "month": 0,
+              "day": 0,
+              "hour": 0,
+              "minute": 0,
+              "second": 0
+            },
+            "quoteCreationTimestamp": "0",
+            "marketingCarrierId": ""
+          }
+        }
+      },
+      "carriers": {
+        "-32480": {
+          "name": "British Airways",
+          "imageUrl": "https://logos.skyscnr.com/images/airlines/BA.png",
+          "iata": "BA"
+        },
+        "-32753": {
+          "name": "Aer Lingus",
+          "imageUrl": "https://logos.skyscnr.com/images/airlines/EI.png",
+          "iata": "EI"
+        }
+      },
+      "places": {
+        "27540851": {
+          "entityId": "27540851",
+          "parentId": "29475375",
+          "name": "Edinburgh",
+          "type": "PLACE_TYPE_CITY",
+          "iata": "EDI"
+        },
+        "27544008": {
+          "entityId": "27544008",
+          "parentId": "29475375",
+          "name": "London",
+          "type": "PLACE_TYPE_CITY",
+          "iata": "LON"
+        },
+        "27563221": {
+          "entityId": "27563221",
+          "parentId": "",
+          "name": "Europe",
+          "type": "PLACE_TYPE_CONTINENT",
+          "iata": ""
+        },
+        "29475375": {
+          "entityId": "29475375",
+          "parentId": "27563221",
+          "name": "United Kingdom",
+          "type": "PLACE_TYPE_COUNTRY",
+          "iata": ""
+        },
+        "95565050": {
+          "entityId": "95565050",
+          "parentId": "27544008",
+          "name": "London Heathrow",
+          "type": "PLACE_TYPE_AIRPORT",
+          "iata": "LHR"
+        },
+        "95673668": {
+          "entityId": "95673668",
+          "parentId": "27540851",
+          "name": "Edinburgh",
+          "type": "PLACE_TYPE_AIRPORT",
+          "iata": "EDI"
+        }
+      }
+    },
+    "groupingOptions": {
+      "byRoute": {
+        "quotesGroups": [
+          {
+            "originPlaceId": "",
+            "destinationPlaceId": "",
+            "quoteIds": [
+              "{bl}:202209122139*D*LHR*EDI*20230831*wauk*BA",
+              "{bl}:202209142251*I*LHR*EDI*20221119*ctuk*EI"
+            ]
+          },
+          {
+            "originPlaceId": "95565050",
+            "destinationPlaceId": "95673668",
+            "quoteIds": [
+              "{bl}:202209122139*D*LHR*EDI*20230831*wauk*BA",
+              "{bl}:202209142251*I*LHR*EDI*20221119*ctuk*EI"
+            ]
+          }
+        ]
+      },
+      "byDate": {
+        "quotesInboundGroups": [],
+        "quotesOutboundGroups": [
+          {
+            "monthYearDate": { "month": 11, "year": 2022 },
+            "quoteIds": ["{bl}:202209142251*I*LHR*EDI*20221119*ctuk*EI"]
+          },
+          {
+            "monthYearDate": { "month": 8, "year": 2023 },
+            "quoteIds": ["{bl}:202209122139*D*LHR*EDI*20230831*wauk*BA"]
+          }
+        ]
+      }
+    }
+  }
+}
