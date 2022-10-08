@@ -192,6 +192,7 @@ export class AppService {
           market: 'UK',
           locale: 'en-GB',
           searchTerm: search,
+          includedEntityTypes: ['PLACE_TYPE_CITY', 'PLACE_TYPE_AIRPORT'],
         },
       },
       {
