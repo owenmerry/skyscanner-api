@@ -100,4 +100,21 @@ export class AppController {
 
     return data;
   }
+
+  @Get('/hotel/search')
+  async getHotelSearch(
+    @Query()
+    query: {
+      from: string;
+      to: string;
+      depart: string;
+      return: string;
+      entityId: string;
+    },
+  ): Promise<any> {
+    const res = await this.appService.searchHotels(query);
+    const data = res.data;
+
+    return data;
+  }
 }

@@ -7,6 +7,8 @@ import { AxiosResponse } from 'axios';
 export class AppService {
   SKYSCANNER_API_URL = '';
   SKYSCANNER_API_KEY = '';
+  SKYSCANNER_HOTEL_API_URL = '';
+  SKYSCANNER_HOTEL_API_KEY = '';
 
   constructor(
     private readonly httpService: HttpService,
@@ -16,6 +18,10 @@ export class AppService {
       this.configService.get<string>('SKYSCANNER_API_URL') || '';
     this.SKYSCANNER_API_KEY =
       this.configService.get<string>('SKYSCANNER_API_KEY') || '';
+    this.SKYSCANNER_HOTEL_API_URL =
+      this.configService.get<string>('SKYSCANNER_HOTEL_API_KEY') || '';
+    this.SKYSCANNER_HOTEL_API_KEY =
+      this.configService.get<string>('SKYSCANNER_HOTEL_API_KEY') || '';
   }
 
   flightsLivePricesCreate(query: {
@@ -198,6 +204,42 @@ export class AppService {
       {
         headers: {
           'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+      },
+    );
+  }
+
+  searchHotels(query: {
+    entityId: string;
+    from: string;
+    to: string;
+    depart: string;
+    return: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `${this.SKYSCANNER_HOTEL_API_URL}/v3/prices/search/entity/${query.entityId}`,
+      {
+        params: {
+          market: 'UK',
+          locale: 'en-GB',
+          checkin_date: query.depart,
+          checkout_date: query.return,
+          currency: 'GBP',
+          adults: 2,
+          rooms: 1,
+          images: 3,
+          image_resolution: 'high',
+          boost_official_partners: 1,
+          sort: '-relevance',
+          limit: 30,
+          offset: 0,
+          partners_per_hotel: 3,
+          enhanced:
+            'filters,partners,images,location,amenities,extras,query_location',
+          apiKey: this.SKYSCANNER_HOTEL_API_KEY,
+        },
+        headers: {
+          'x-user-agent': 'M;B2B',
         },
       },
     );
