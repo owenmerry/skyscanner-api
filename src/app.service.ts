@@ -19,7 +19,7 @@ export class AppService {
     this.SKYSCANNER_API_KEY =
       this.configService.get<string>('SKYSCANNER_API_KEY') || '';
     this.SKYSCANNER_HOTEL_API_URL =
-      this.configService.get<string>('SKYSCANNER_HOTEL_API_KEY') || '';
+      this.configService.get<string>('SKYSCANNER_HOTEL_API_URL') || '';
     this.SKYSCANNER_HOTEL_API_KEY =
       this.configService.get<string>('SKYSCANNER_HOTEL_API_KEY') || '';
   }
