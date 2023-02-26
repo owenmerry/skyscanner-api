@@ -96,8 +96,11 @@ export class AppService {
         headers: {
           'x-api-key': this.SKYSCANNER_API_KEY,
         },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        }
       },
-    );
+    )
   }
 
   flightsLivePricesPoll(sessionToken: string): Promise<AxiosResponse<any>> {
@@ -108,6 +111,9 @@ export class AppService {
         headers: {
           'x-api-key': this.SKYSCANNER_API_KEY,
         },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        }
       },
     );
   }
