@@ -122,27 +122,53 @@ export class AppService {
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
       {
-        query: {
-          currency: 'GBP',
-          locale: 'en-GB',
-          excludedWebsites: [''],
-          market: 'UK',
-          queryLegs: [
+        "query": {
+          "currency": "GBP",
+          "locale": "en-GB",
+          "market": "UK",
+          "queryLegs": [
             {
-              destinationPlace: {
-                queryPlace: {
-                  iata: 'EDI',
-                },
+              "originPlace": {
+                "queryPlace": {
+                  "entityId": "27544008"
+                }
               },
-              originPlace: {
-                queryPlace: {
-                  iata: 'LHR',
-                },
+              "destinationPlace": {
+                "anywhere": true
               },
-              anytime: true,
+              "dateRange": {
+                "startDate": {
+                  "year": 2023,
+                  "month": new Date().getMonth() + 1,
+                },
+                "endDate": {
+                  "year": 2023,
+                  "month": new Date().getMonth() + 1,
+                }
+              }
             },
-          ],
-        },
+            {
+              "originPlace": {
+                "anywhere": true
+              },
+              "destinationPlace": {
+                "queryPlace": {
+                  "entityId": "27544008"
+                }
+              },
+              "dateRange": {
+                "startDate": {
+                  "year": 2023,
+                  "month": new Date().getMonth() + 1,
+                },
+                "endDate": {
+                  "year": 2023,
+                  "month": new Date().getMonth() + 1,
+                }
+              }
+            }
+          ]
+        }
       },
       {
         headers: {
@@ -236,7 +262,7 @@ export class AppService {
           images: 3,
           image_resolution: 'high',
           boost_official_partners: 1,
-          sort: '-relevance',
+          sort: '-price',
           limit: 30,
           offset: 0,
           partners_per_hotel: 3,
