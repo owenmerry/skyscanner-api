@@ -98,9 +98,9 @@ export class AppService {
         },
         validateStatus: function (status) {
           return status < 500; // Resolve only if the status code is less than 500
-        }
+        },
       },
-    )
+    );
   }
 
   flightsLivePricesPoll(sessionToken: string): Promise<AxiosResponse<any>> {
@@ -113,62 +113,65 @@ export class AppService {
         },
         validateStatus: function (status) {
           return status < 500; // Resolve only if the status code is less than 500
-        }
+        },
       },
     );
   }
 
-  flightsIndicitiveSearch(): Promise<AxiosResponse<any>> {
+  flightsIndicitiveSearch(query: {
+    month?: number;
+    from: string;
+  }): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
       {
-        "query": {
-          "currency": "GBP",
-          "locale": "en-GB",
-          "market": "UK",
-          "queryLegs": [
+        query: {
+          currency: 'GBP',
+          locale: 'en-GB',
+          market: 'UK',
+          queryLegs: [
             {
-              "originPlace": {
-                "queryPlace": {
-                  "entityId": "27544008"
-                }
-              },
-              "destinationPlace": {
-                "anywhere": true
-              },
-              "dateRange": {
-                "startDate": {
-                  "year": 2023,
-                  "month": new Date().getMonth() + 1,
+              originPlace: {
+                queryPlace: {
+                  entityId: query.from,
                 },
-                "endDate": {
-                  "year": 2023,
-                  "month": new Date().getMonth() + 1,
-                }
-              }
+              },
+              destinationPlace: {
+                anywhere: true,
+              },
+              dateRange: {
+                startDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+                endDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+              },
             },
             {
-              "originPlace": {
-                "anywhere": true
+              originPlace: {
+                anywhere: true,
               },
-              "destinationPlace": {
-                "queryPlace": {
-                  "entityId": "27544008"
-                }
-              },
-              "dateRange": {
-                "startDate": {
-                  "year": 2023,
-                  "month": new Date().getMonth() + 1,
+              destinationPlace: {
+                queryPlace: {
+                  entityId: query.from,
                 },
-                "endDate": {
-                  "year": 2023,
-                  "month": new Date().getMonth() + 1,
-                }
-              }
-            }
-          ]
-        }
+              },
+              dateRange: {
+                startDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+                endDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+              },
+            },
+          ],
+        },
       },
       {
         headers: {

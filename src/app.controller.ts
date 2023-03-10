@@ -35,8 +35,14 @@ export class AppController {
   }
 
   @Get('/price')
-  async getPrice(): Promise<any> {
-    const res = await this.appService.flightsIndicitiveSearch();
+  async getPrice(
+    @Query()
+    query: {
+      from: string;
+      month?: number;
+    },
+  ): Promise<any> {
+    const res = await this.appService.flightsIndicitiveSearch(query);
 
     return res.data;
   }
