@@ -10,7 +10,7 @@ import { skyscanner } from './helpers/sdk/flight';
 })
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get('/poll/:token')
   async getPoll(@Param() params: { token: string }): Promise<any> {
@@ -40,6 +40,7 @@ export class AppController {
     query: {
       from: string;
       month?: number;
+      groupType?: string;
     },
   ): Promise<any> {
     const res = await this.appService.flightsIndicitiveSearch(query);

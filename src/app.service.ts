@@ -120,7 +120,10 @@ export class AppService {
 
   flightsIndicitiveSearch(query: {
     month?: number;
+    endMonth?: number;
     from: string;
+    to?: string;
+    groupType?: string;
   }): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
@@ -129,6 +132,7 @@ export class AppService {
           currency: 'GBP',
           locale: 'en-GB',
           market: 'UK',
+          dateTimeGroupingType: query.groupType === 'month' ? 'DATE_TIME_GROUPING_TYPE_BY_MONTH' : 'DATE_TIME_GROUPING_TYPE_BY_DATE',
           queryLegs: [
             {
               originPlace: {
@@ -137,7 +141,11 @@ export class AppService {
                 },
               },
               destinationPlace: {
-                anywhere: true,
+                ...(query?.to && query.to !== 'anywhere' ? {
+                  queryPlace: {
+                    entityId: query.to,
+                  }
+                } : { anywhere: true }),
               },
               dateRange: {
                 startDate: {
@@ -152,7 +160,11 @@ export class AppService {
             },
             {
               originPlace: {
-                anywhere: true,
+                ...(query?.to && query.to !== 'anywhere' ? {
+                  queryPlace: {
+                    entityId: query.to,
+                  }
+                } : { anywhere: true }),
               },
               destinationPlace: {
                 queryPlace: {
@@ -162,11 +174,11 @@ export class AppService {
               dateRange: {
                 startDate: {
                   year: 2023,
-                  month: query?.month || new Date().getMonth() + 1,
+                  month: query?.endMonth || query?.month || new Date().getMonth() + 1,
                 },
                 endDate: {
                   year: 2023,
-                  month: query?.month || new Date().getMonth() + 1,
+                  month: query?.endMonth || query?.month || new Date().getMonth() + 1,
                 },
               },
             },
@@ -271,10 +283,10 @@ export class AppService {
           partners_per_hotel: 3,
           enhanced:
             'filters,partners,images,location,amenities,extras,query_location',
-          apiKey: this.SKYSCANNER_HOTEL_API_KEY,
         },
         headers: {
           'x-user-agent': 'M;B2B',
+          apikey: this.SKYSCANNER_HOTEL_API_KEY,
         },
       },
     );
