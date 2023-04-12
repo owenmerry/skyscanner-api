@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException, InternalServerErrorException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
@@ -132,6 +132,72 @@ export class AppService {
           currency: 'GBP',
           locale: 'en-GB',
           market: 'UK',
+          queryLegs: [
+            {
+              originPlace: {
+                queryPlace: {
+                  entityId: query.from,
+                },
+              },
+              destinationPlace: {
+                anywhere: true,
+              },
+              dateRange: {
+                startDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+                endDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+              },
+            },
+            {
+              originPlace: {
+                anywhere: true,
+              },
+              destinationPlace: {
+                queryPlace: {
+                  entityId: query.from,
+                },
+              },
+              dateRange: {
+                startDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+                endDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+              },
+            },
+          ],
+        },
+      },
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+      },
+    );
+  }
+
+  flightsIndicitiveSearch2(query: {
+    month?: number;
+    endMonth?: number;
+    from: string;
+    to?: string;
+    groupType?: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.post(
+      `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
+      {
+        query: {
+          currency: 'GBP',
+          locale: 'en-GB',
+          market: 'UK',
           dateTimeGroupingType: query.groupType === 'month' ? 'DATE_TIME_GROUPING_TYPE_BY_MONTH' : 'DATE_TIME_GROUPING_TYPE_BY_DATE',
           queryLegs: [
             {
@@ -190,8 +256,12 @@ export class AppService {
           'x-api-key': this.SKYSCANNER_API_KEY,
         },
       },
-    );
+    ).catch((err) => {
+      throw new InternalServerErrorException(err.message);
+    });;
   }
+
+
 
   cultureMarkets(): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.get(
