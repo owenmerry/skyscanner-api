@@ -4,7 +4,7 @@ import { convertDeepLink } from './link';
 
 // types (Response)
 
-interface SkyscannerAPICreateResponse {
+export interface SkyscannerAPICreateResponse {
   sessionToken: string;
   status: string;
   content: {
@@ -46,9 +46,9 @@ interface Agent {
   name: string;
   rating: number;
   type:
-    | 'AGENT_TYPE_UNSPECIFIED'
-    | 'AGENT_TYPE_TRAVEL_AGENT'
-    | 'AGENT_TYPE_AIRLINE';
+  | 'AGENT_TYPE_UNSPECIFIED'
+  | 'AGENT_TYPE_TRAVEL_AGENT'
+  | 'AGENT_TYPE_AIRLINE';
   ratingBreakdown: {
     customerService: number;
     reliablePrices: number;
@@ -130,9 +130,9 @@ interface DealSDK {
 interface DeepLinkSDK {
   link: string;
   type:
-    | 'AGENT_TYPE_UNSPECIFIED'
-    | 'AGENT_TYPE_TRAVEL_AGENT'
-    | 'AGENT_TYPE_AIRLINE';
+  | 'AGENT_TYPE_UNSPECIFIED'
+  | 'AGENT_TYPE_TRAVEL_AGENT'
+  | 'AGENT_TYPE_AIRLINE';
   agentImageUrl: string;
   agentName: string;
 }

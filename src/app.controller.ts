@@ -3,6 +3,18 @@ import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { skyscanner } from './helpers/sdk/flight';
+import { Search } from './helpers/dto/flight';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiQuery,
+  ApiExcludeEndpoint,
+  ApiParam,
+  ApiProperty,
+} from '@nestjs/swagger';
+
 
 @Module({
   imports: [HttpModule],
@@ -13,6 +25,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get('/poll/:token')
+  @ApiExcludeEndpoint()
   async getPoll(@Param() params: { token: string }): Promise<any> {
     const res = await this.appService.flightsLivePricesPoll(params.token);
 
@@ -20,6 +33,7 @@ export class AppController {
   }
 
   @Get('/create')
+  @ApiExcludeEndpoint()
   async getCreate(
     @Query()
     query: {
@@ -35,6 +49,7 @@ export class AppController {
   }
 
   @Get('/price')
+  @ApiExcludeEndpoint()
   async getPrice(
     @Query()
     query: {
@@ -49,6 +64,7 @@ export class AppController {
   }
 
   @Get('/markets')
+  @ApiExcludeEndpoint()
   async getMarkets(): Promise<any> {
     const res = await this.appService.cultureMarkets();
 
@@ -56,6 +72,7 @@ export class AppController {
   }
 
   @Get('/locales')
+  @ApiExcludeEndpoint()
   async getLocales(): Promise<any> {
     const res = await this.appService.cultureLocales();
 
@@ -63,6 +80,7 @@ export class AppController {
   }
 
   @Get('/currencies')
+  @ApiExcludeEndpoint()
   async getCurrenciess(): Promise<any> {
     const res = await this.appService.cultureCurrencies();
 
@@ -70,12 +88,14 @@ export class AppController {
   }
 
   @Get('/geo')
+  @ApiExcludeEndpoint()
   async getGeo(): Promise<any> {
     const res = await this.appService.geo();
 
     return res.data;
   }
   @Get('/autosuggest/flights/:search')
+  @ApiExcludeEndpoint()
   async getAutoSuggestFlights(
     @Param() params: { search: string },
   ): Promise<any> {
@@ -85,6 +105,15 @@ export class AppController {
   }
 
   @Get('/search')
+  @ApiResponse({
+    status: 200,
+    description: 'Creates a flight search',
+    type: Search,
+  })
+  @ApiQuery({ name: 'from', required: true, description: 'IATA location flight origin' })
+  @ApiQuery({ name: 'to', required: true, description: 'IATA location flight destination' })
+  @ApiQuery({ name: 'depart', required: true, description: 'Depature date of the flight in yyyy-mm-dd format' })
+  @ApiQuery({ name: 'return', required: false, description: 'Return date of the flight in yyyy-mm-dd format' })
   async getSearch(
     @Query()
     query: {
@@ -94,13 +123,19 @@ export class AppController {
       return: string;
     },
   ): Promise<any> {
-    const res = await this.appService.flightsLivePricesCreate(query);
+    const res = await this.appService.flightsLivePricesSimpleSearch(query);
     const data = skyscanner(res.data).search();
 
     return data;
   }
 
   @Get('/search/:token')
+  @ApiExcludeEndpoint()
+  @ApiParam({ name: 'token', required: true, description: 'sessionToken from the create search `/create` endpoint' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns flight search using token to get full results',
+  })
   async getSearchPoll(@Param() params: { token: string }): Promise<any> {
     const res = await this.appService.flightsLivePricesPoll(params.token);
     const data = skyscanner(res.data).search();
@@ -109,6 +144,7 @@ export class AppController {
   }
 
   @Get('/hotel/search')
+  @ApiExcludeEndpoint()
   async getHotelSearch(
     @Query()
     query: {
