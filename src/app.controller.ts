@@ -15,6 +15,7 @@ import {
   ApiProperty,
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { send } from 'process';
 
 
 @Module({
@@ -161,6 +162,29 @@ export class AppController {
     const data = res.data;
 
     return data;
+  }
+
+
+  @Get('/search-simple')
+  @ApiExcludeEndpoint()
+  async getSearchSimple(): Promise<any> {
+    const query = {
+      from: 'LON',
+      to: 'EDI',
+      depart: '2023-04-28',
+      return: '2023-04-30',
+    }
+    console.log('/search-simple endpoint accessed')
+    const res = await this.appService.flightsLivePricesSimpleSearch(query);
+    const data = skyscanner(res.data).search();
+
+    const sendData = {
+      stats: data.stats,
+      cheapest: data.cheapest[0],
+      sessionToken: data.sessionToken
+    }
+
+    return sendData;
   }
 
 }

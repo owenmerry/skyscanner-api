@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Flights API
+  description: Get flights deals from skyscanner
+  version: '1.0'
+servers:
+  - url: https://api.flights.owenmerry.com
+paths:
+  /search-simple:
+    get:
+      operationId: AppController_getSearchSimple
+      responses:
+        '200':
+          description: Creates a flight search
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Search'
+tags: []
+components:
+  schemas:
+    DeepLink:
+      type: object
+      properties:
+        link:
+          type: string
+          description: url for buying the flight
+        type:
+          type: string
+          description: type of link
+        agentImageUrl:
+          type: string
+          description: agent image
+        agentName:
+          type: string
+          description: agent that is selling the flight
+      required:
+        - link
+        - type
+        - agentImageUrl
+        - agentName
+    Deal:
+      type: object
+      properties:
+        price:
+          type: string
+          description: price of the flight
+        deepLinks:
+          type: array
+          description: link of the flight or multiple if needing multiple purchases
+          items:
+            $ref: '#/components/schemas/DeepLink'
+      required:
+        - price
+        - deepLinks
+    Segment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: flight ids for skyscanner
+        from:
+          type: string
+          description: location from
+        to:
+          type: string
+          description: location to
+        duration:
+          type: number
+          description: how long is the flight
+        departure:
+          type: string
+          description: when does it depart
+        arrival:
+          type: string
+          description: when does it arrive
+      required:
+        - id
+        - from
+        - to
+        - duration
+        - departure
+        - arrival
+    Leg:
+      type: object
+      properties:
+        id:
+          type: string
+          description: flight ids for skyscanner on the leg of the flight
+        from:
+          type: string
+          description: where is the flight start from
+        to:
+          type: string
+          description: where is the flight to
+        duration:
+          type: number
+          description: how long is the flight
+        departure:
+          type: string
+          description: when does it depart
+        arrival:
+          type: string
+          description: when does it arrive
+        stops:
+          type: number
+          description: how many stops
+        segments:
+          type: array
+          description: the different flights on the flight
+          items:
+            $ref: '#/components/schemas/Segment'
+      required:
+        - id
+        - from
+        - to
+        - duration
+        - departure
+        - arrival
+        - stops
+        - segments
+    Flight:
+      type: object
+      description: all details about the flight or flights
+      properties:
+        itineraryId:
+          type: string
+          description: flight ids for skyscanner
+        deals:
+          type: array
+          description: information on price
+          items:
+            $ref: '#/components/schemas/Deal'
+        price:
+          type: string
+          description: flight price
+        deepLink:
+          type: string
+          description: link to flight for traveler to buy flight
+        legs:
+          type: array
+          description: Info on each part of the flight journey
+          items:
+            $ref: '#/components/schemas/Leg'
+      required:
+        - itineraryId
+        - deals
+        - price
+        - deepLink
+        - legs
+    Stats:
+      type: object
+      properties:
+        total:
+          type: number
+          description: total number of flights
+        minPrice:
+          type: string
+          description: whats the lowest price
+      required:
+        - total
+        - minPrice
+    Search:
+      type: object
+      description: all details about the flight search
+      properties:
+        sessionToken:
+          type: string
+          description: session token of flight used by skyscanner
+        cheapest:
+          type: array
+          description: flight details arranged by cheapest first
+          items:
+            $ref: '#/components/schemas/Flight'
+        stats:
+          $ref: '#/components/schemas/Stats'
+      required:
+        - sessionToken
+        - cheapest
+        - stats

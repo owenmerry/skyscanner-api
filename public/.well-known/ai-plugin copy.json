@@ -9,7 +9,7 @@
     },
     "api": {
         "type": "openapi",
-        "url": "http://localhost:3000/api-json",
+        "url": "http://localhost:3000/open-api.yaml",
         "is_user_authenticated": false
     },
     "logo_url": "http://localhost:3000/owen-logo.png",
