@@ -165,14 +165,14 @@ export class AppController {
   }
 
 
-  @Get('/search-simple')
+  @Get('/search-simple/:from/:to/:depart/:return?')
   @ApiExcludeEndpoint()
-  async getSearchSimple(): Promise<any> {
+  async getSearchSimple(@Param() params: { from: string, to: string, depart: string, return?: string }): Promise<any> {
     const query = {
-      from: 'LON',
-      to: 'EDI',
-      depart: '2023-04-28',
-      return: '2023-04-30',
+      from: params.from,
+      to: params.to,
+      depart: params.depart,
+      return: params.return || '',
     }
     console.log('/search-simple endpoint accessed')
     const res = await this.appService.flightsLivePricesSimpleSearch(query);
