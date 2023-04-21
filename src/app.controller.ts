@@ -204,6 +204,11 @@ export class AppController {
       const pollData = skyscanner(resPoll.data).search();
       //data = pollData;
 
+      resolve({
+        ...data,
+        flights: data.flights.slice(0, 100),
+      });
+
       resolve(pollData);
     })
 
