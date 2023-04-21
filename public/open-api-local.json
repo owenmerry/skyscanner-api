@@ -58,7 +58,7 @@
     "tags": [],
     "servers": [
         {
-            "url": "https://api.flights.owenmerry.com/"
+            "url": "http://localhost:3000"
         }
     ],
     "components": {
