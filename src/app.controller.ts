@@ -107,6 +107,7 @@ export class AppController {
   }
 
   @Get('/search')
+  @ApiExcludeEndpoint()
   @ApiResponse({
     status: 200,
     description: 'Creates a flight search',
@@ -165,24 +166,39 @@ export class AppController {
   }
 
 
-  @Get('/search-simple/:from/:to/:depart/:return?')
-  @ApiExcludeEndpoint()
-  async getSearchSimple(@Param() params: { from: string, to: string, depart: string, return?: string }): Promise<any> {
+  @Get('/search-simple/:from/:to/:depart/')
+  @ApiResponse({
+    status: 200,
+    description: 'Creates a flight search',
+    type: Search,
+  })
+  @ApiParam({ name: 'from', required: true, description: 'IATA location flight origin', schema: { type: 'string' } })
+  @ApiParam({ name: 'to', required: true, description: 'IATA location flight destination', schema: { type: 'string' } })
+  @ApiParam({ name: 'depart', required: true, description: 'Depature date of the flight in yyyy-mm-dd format', schema: { type: 'string' } })
+  @ApiQuery({ name: 'return', required: false, description: 'Return date of the flight in yyyy-mm-dd format', schema: { type: 'string' } })
+  async getSearchSimple(
+    @Param() params: { from: string, to: string, depart: string, return?: string },
+    @Query()
+    queryString: {
+      return: string;
+    },
+  ): Promise<any> {
     const query = {
       from: params.from,
       to: params.to,
       depart: params.depart,
-      return: params.return || '',
+      return: queryString.return || '',
     }
     console.log('/search-simple endpoint accessed')
     const res = await this.appService.flightsLivePricesSimpleSearch(query);
     const data = skyscanner(res.data).search();
 
-    const sendData = {
-      stats: data.stats,
-      flights: data.cheapest,
-      sessionToken: data.sessionToken
-    }
+    // const sendData = {
+    //   stats: data.stats,
+    //   flights: data.cheapest,
+    //   sessionToken: data.sessionToken
+    // }
+    const sendData = data;
 
     return sendData;
   }
