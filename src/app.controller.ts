@@ -205,37 +205,40 @@ export class AppController {
       //data = pollData;
 
       resolve({
-        ...data,
-        flights: data.flights.slice(0, 100),
+        ...pollData,
+        flights: pollData.flights.slice(0, 100),
       });
-
-      resolve(pollData);
     })
 
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
       return data;
     }
+    console.log('poll 1', data.status);
 
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
       return data;
     }
+    console.log('poll 2', data.status);
 
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
       return data;
     }
+    console.log('poll 3', data.status);
 
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
       return data;
     }
+    console.log('poll 4', data.status);
 
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
       return data;
     }
+    console.log('poll 5', data.status);
 
     return data;
 
