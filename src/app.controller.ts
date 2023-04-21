@@ -213,7 +213,29 @@ export class AppController {
     })
 
     data = await pollFlights(sessionToken);
+    if (data.status === 'RESULT_STATUS_COMPLETE') {
+      return data;
+    }
 
+    data = await pollFlights(sessionToken);
+    if (data.status === 'RESULT_STATUS_COMPLETE') {
+      return data;
+    }
+
+    data = await pollFlights(sessionToken);
+    if (data.status === 'RESULT_STATUS_COMPLETE') {
+      return data;
+    }
+
+    data = await pollFlights(sessionToken);
+    if (data.status === 'RESULT_STATUS_COMPLETE') {
+      return data;
+    }
+
+    data = await pollFlights(sessionToken);
+    if (data.status === 'RESULT_STATUS_COMPLETE') {
+      return data;
+    }
 
     return data;
 
