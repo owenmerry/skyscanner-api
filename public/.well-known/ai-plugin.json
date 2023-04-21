@@ -1,18 +1,18 @@
 {
     "schema_version": "v1",
-    "name_for_human": "Local: Owen Flights Plugin",
+    "name_for_human": "Owen Flights Plugin",
     "name_for_model": "owenFlightsPlugin",
-    "description_for_human": "Local: Plugin for flights search using Skyscanner.net",
-    "description_for_model": "Plugin for searching for flights deals using the skyscanner apis",
+    "description_for_human": "Plugin for flights search using Skyscanner.net",
+    "description_for_model": "Plugin for searching for flights using the skyscanner apis",
     "auth": {
         "type": "none"
     },
     "api": {
         "type": "openapi",
-        "url": "http://localhost:3000/open-api.yaml",
+        "url": "https://api.flights.owenmerry.com/open-api.yaml",
         "is_user_authenticated": false
     },
-    "logo_url": "http://localhost:3000/owen-logo.png",
+    "logo_url": "https://api.flights.owenmerry.com/owen-logo.png",
     "contact_email": "me@owenmerry.com",
     "legal_info_url": "http://www.owenmerry.com"
 }

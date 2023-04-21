@@ -1,14 +1,68 @@
 openapi: 3.0.0
 info:
   title: Flights API
-  description: Get flights deals from skyscanner
+  description: Get flight search from skyscanner APIs
   version: '1.0'
 servers:
   - url: https://api.flights.owenmerry.com
 paths:
-  /search-simple:
+  /search-simple/{from}/{to}/{depart}/:
     get:
-      operationId: AppController_getSearchSimple
+      operationId: AppController_getSearchSimpleSingle
+      parameters:
+        - name: depart
+          required: true
+          in: path
+          description: Depature date of the flight in yyyy-mm-dd format
+          schema: 
+            type: string
+        - name: to
+          required: true
+          in: path
+          description: IATA location flight destination
+          schema: 
+            type: string
+        - name: from
+          required: true
+          in: path
+          description: IATA location flight origin
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: Creates a flight search
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Search'
+  /search-simple/{from}/{to}/{depart}/{return}/:
+    get:
+      operationId: AppController_getSearchSimpleReturn
+      parameters:
+        - name: return
+          required: true
+          in: path
+          description: Return date of the flight in yyyy-mm-dd format
+          schema: 
+            type: string
+        - name: depart
+          required: true
+          in: path
+          description: Depature date of the flight in yyyy-mm-dd format
+          schema: 
+            type: string
+        - name: to
+          required: true
+          in: path
+          description: IATA location flight destination
+          schema: 
+            type: string
+        - name: from
+          required: true
+          in: path
+          description: IATA location flight origin
+          schema: 
+            type: string
       responses:
         '200':
           description: Creates a flight search
