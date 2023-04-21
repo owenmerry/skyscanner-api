@@ -12,7 +12,7 @@
         "url": "https://api.flights.owenmerry.com/open-api.yaml",
         "is_user_authenticated": false
     },
-    "logo_url": "https://api.flights.owenmerry.com/skyscanner.png",
+    "logo_url": "https://api.flights.owenmerry.com/skyscanner.svg",
     "contact_email": "me@owenmerry.com",
     "legal_info_url": "http://www.owenmerry.com"
 }
