@@ -206,7 +206,7 @@ export class AppController {
 
       resolve({
         ...pollData,
-        flights: pollData.flights.slice(0, 100),
+        flights: pollData.flights.slice(0, 30),
       });
     })
 
