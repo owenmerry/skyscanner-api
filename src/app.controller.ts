@@ -180,7 +180,7 @@ export class AppController {
 
     const sendData = {
       stats: data.stats,
-      cheapest: data.cheapest[0],
+      flights: data.cheapest,
       sessionToken: data.sessionToken
     }
 
