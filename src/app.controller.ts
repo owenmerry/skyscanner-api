@@ -2,6 +2,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
+import { SearchSDK } from './helpers/sdk/flight';
 import { skyscanner } from './helpers/sdk/flight';
 import { Search } from './helpers/dto/flight';
 import {
@@ -166,6 +167,7 @@ export class AppController {
   }
 
 
+
   @Get('/search-simple/:from/:to/:depart/')
   @ApiResponse({
     status: 200,
@@ -183,19 +185,32 @@ export class AppController {
       return: string;
     },
   ): Promise<any> {
+    const sleep = (ms: number) => {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
     const query = {
       from: params.from,
       to: params.to,
       depart: params.depart,
       return: queryString.return || '',
-    }
-    console.log('/search-simple endpoint accessed')
+    };
     const res = await this.appService.flightsLivePricesSimpleSearch(query);
-    const data = skyscanner(res.data).search();
+    let data = skyscanner(res.data).search();
+    const sessionToken = data.sessionToken;
+    await sleep(1000);
 
-    const sendData = data;
+    const pollFlights = (token: string) => new Promise<SearchSDK>(async (resolve) => {
+      const resPoll = await this.appService.flightsLivePricesPoll(token);
+      const pollData = skyscanner(resPoll.data).search();
+      //data = pollData;
 
-    return sendData;
+      resolve(pollData);
+    })
+
+    data = await pollFlights(sessionToken);
+
+
+    return data;
+
   }
-
 }
