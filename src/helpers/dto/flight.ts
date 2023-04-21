@@ -115,9 +115,6 @@ export class Search {
     @ApiProperty()
     sessionToken: string;
 
-    @ApiProperty()
-    status: string;
-
     @ApiProperty({ isArray: true, })
     best: Flight;
 
