@@ -9,7 +9,7 @@
     },
     "api": {
         "type": "openapi",
-        "url": "https://api.flights.owenmerry.com//api-yaml",
+        "url": "https://api.flights.owenmerry.com/api-yaml",
         "is_user_authenticated": false
     },
     "logo_url": "https://api.flights.owenmerry.com//skyscanner.svg",
