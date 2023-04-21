@@ -193,11 +193,6 @@ export class AppController {
     const res = await this.appService.flightsLivePricesSimpleSearch(query);
     const data = skyscanner(res.data).search();
 
-    // const sendData = {
-    //   stats: data.stats,
-    //   flights: data.cheapest,
-    //   sessionToken: data.sessionToken
-    // }
     const sendData = data;
 
     return sendData;

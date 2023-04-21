@@ -116,13 +116,7 @@ export class Search {
     sessionToken: string;
 
     @ApiProperty({ isArray: true, })
-    best: Flight;
-
-    @ApiProperty({ isArray: true, })
-    cheapest: Flight;
-
-    @ApiProperty({ isArray: true, })
-    fastest: Flight;
+    flights: Flight;
 
     @ApiProperty()
     stats: Stats;

@@ -108,9 +108,7 @@ export interface SkyscannerSDK {
 
 export interface SearchSDK {
   sessionToken: string;
-  best: FlightSDK[];
-  cheapest: FlightSDK[];
-  fastest: FlightSDK[];
+  flights: FlightSDK[];
   stats: StatsSDK;
 }
 
@@ -165,9 +163,7 @@ export const skyscanner = (res: SkyscannerAPICreateResponse): SkyscannerSDK => {
   return {
     search: () => ({
       sessionToken: res.sessionToken,
-      best: getSortingOptions(res, 'best'),
-      cheapest: getSortingOptions(res, 'cheapest'),
-      fastest: getSortingOptions(res, 'fastest'),
+      flights: getSortingOptions(res, 'cheapest'),
       stats: stats(res),
     }),
   };
