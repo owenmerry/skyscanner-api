@@ -14,6 +14,7 @@ import {
   ApiParam,
   ApiProperty,
 } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 
 @Module({
@@ -123,6 +124,7 @@ export class AppController {
       return: string;
     },
   ): Promise<any> {
+    console.log('/search endpoint accessed')
     const res = await this.appService.flightsLivePricesSimpleSearch(query);
     const data = skyscanner(res.data).search();
 
@@ -160,4 +162,5 @@ export class AppController {
 
     return data;
   }
+
 }

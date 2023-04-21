@@ -1,8 +1,8 @@
 {
     "schema_version": "v1",
-    "name_for_human": "Owen Flights Plugin",
+    "name_for_human": "Local: Owen Flights Plugin",
     "name_for_model": "owenFlightsPlugin",
-    "description_for_human": "Plugin for flights search using Skyscanner.net",
+    "description_for_human": "Local: Plugin for flights search using Skyscanner.net",
     "description_for_model": "Plugin for searching for flights prices using the skyscanner apis",
     "auth": {
         "type": "none"

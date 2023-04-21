@@ -15,6 +15,9 @@ import { join } from 'path';
     HttpModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
+      serveStaticOptions: {
+        index: false,
+      },
     }),
   ],
   controllers: [AppController],

@@ -8,11 +8,19 @@
         "13542-2210020730--32356-0-11235-2210020900": {
           "pricingOptions": [
             {
-              "price": { "amount": "136990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "136990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "136990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "136990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F13542.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C803%257C13542%257C2022-10-02T07%253A30%257C11235%257C2022-10-02T09%253A00%257C90%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D136.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C5440397176808347060%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -27,17 +35,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13542-2210020730--32356-0-11235-2210020900"],
+          "legIds": [
+            "13542-2210020730--32356-0-11235-2210020900"
+          ],
           "sustainabilityData": null
         },
         "13542-2210021745--32356-0-11235-2210021915": {
           "pricingOptions": [
             {
-              "price": { "amount": "171990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "171990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "171990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "171990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F13542.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C815%257C13542%257C2022-10-02T17%253A45%257C11235%257C2022-10-02T19%253A15%257C90%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D171.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C32458929964894605%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -52,17 +70,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13542-2210021745--32356-0-11235-2210021915"],
+          "legIds": [
+            "13542-2210021745--32356-0-11235-2210021915"
+          ],
           "sustainabilityData": null
         },
         "13542-2210021915--32356-0-11235-2210022045": {
           "pricingOptions": [
             {
-              "price": { "amount": "136990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "136990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "136990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "136990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F13542.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C811%257C13542%257C2022-10-02T19%253A15%257C11235%257C2022-10-02T20%253A45%257C90%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D136.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C1892284354257182416%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -77,17 +105,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13542-2210021915--32356-0-11235-2210022045"],
+          "legIds": [
+            "13542-2210021915--32356-0-11235-2210022045"
+          ],
           "sustainabilityData": null
         },
         "13542-2210022100--32356-0-11235-2210022225": {
           "pricingOptions": [
             {
-              "price": { "amount": "111990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "111990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "111990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "111990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F13542.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C813%257C13542%257C2022-10-02T21%253A00%257C11235%257C2022-10-02T22%253A25%257C85%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D111.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C-5448535565779239855%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -102,17 +140,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13542-2210022100--32356-0-11235-2210022225"],
+          "legIds": [
+            "13542-2210022100--32356-0-11235-2210022225"
+          ],
           "sustainabilityData": null
         },
         "13554-2210022225--32480-0-11235-2210022355": {
           "pricingOptions": [
             {
-              "price": { "amount": "54070", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["wauk"],
+              "price": {
+                "amount": "54070",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "wauk"
+              ],
               "items": [
                 {
-                  "price": { "amount": "54070", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "54070",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "wauk",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Fwauk%2F1%2F13554.11235.2022-10-02%2Fair%2Ftrava%2Fflights%3Fitinerary%3Dflight%257C-32480%257C1450%257C13554%257C2022-10-02T22%253A25%257C11235%257C2022-10-02T23%253A55%257C90%257C-%257C-%257C-%26carriers%3D-32480%26operators%3D-32480%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D54.07%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS4mIpTyzNFmLmuKUixczxOFyhYeXjmWxGTAqMAPl4srccAAAA%257C8284117066593319204%257C2%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T04%253A56%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -127,17 +175,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13554-2210022225--32480-0-11235-2210022355"],
+          "legIds": [
+            "13554-2210022225--32480-0-11235-2210022355"
+          ],
           "sustainabilityData": null
         },
         "13771-2210021345--32356-0-11235-2210021505": {
           "pricingOptions": [
             {
-              "price": { "amount": "166990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "166990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "166990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "166990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F13771.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C15%257C13771%257C2022-10-02T13%253A45%257C11235%257C2022-10-02T15%253A05%257C80%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D166.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C6381859177695927496%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -152,17 +210,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13771-2210021345--32356-0-11235-2210021505"],
+          "legIds": [
+            "13771-2210021345--32356-0-11235-2210021505"
+          ],
           "sustainabilityData": null
         },
         "13771-2210021920--32356-0-11235-2210022035": {
           "pricingOptions": [
             {
-              "price": { "amount": "146990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "146990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "146990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "146990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F13771.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C19%257C13771%257C2022-10-02T19%253A20%257C11235%257C2022-10-02T20%253A35%257C75%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D146.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C-2541189747500992860%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -177,17 +245,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["13771-2210021920--32356-0-11235-2210022035"],
+          "legIds": [
+            "13771-2210021920--32356-0-11235-2210022035"
+          ],
           "sustainabilityData": null
         },
         "16574-2210020805--32356-0-11235-2210020920": {
           "pricingOptions": [
             {
-              "price": { "amount": "111990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "111990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "111990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "111990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F16574.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C233%257C16574%257C2022-10-02T08%253A05%257C11235%257C2022-10-02T09%253A20%257C75%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D111.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C5327859785139450570%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -202,17 +280,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["16574-2210020805--32356-0-11235-2210020920"],
+          "legIds": [
+            "16574-2210020805--32356-0-11235-2210020920"
+          ],
           "sustainabilityData": null
         },
         "16574-2210021700--32356-0-11235-2210021815": {
           "pricingOptions": [
             {
-              "price": { "amount": "146990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "146990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "146990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "146990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F16574.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C237%257C16574%257C2022-10-02T17%253A00%257C11235%257C2022-10-02T18%253A15%257C75%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D146.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C-300389733477722868%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -227,17 +315,27 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["16574-2210021700--32356-0-11235-2210021815"],
+          "legIds": [
+            "16574-2210021700--32356-0-11235-2210021815"
+          ],
           "sustainabilityData": null
         },
         "16574-2210022100--32356-0-11235-2210022215": {
           "pricingOptions": [
             {
-              "price": { "amount": "118990", "unit": "PRICE_UNIT_MILLI" },
-              "agentIds": ["easy"],
+              "price": {
+                "amount": "118990",
+                "unit": "PRICE_UNIT_MILLI"
+              },
+              "agentIds": [
+                "easy"
+              ],
               "items": [
                 {
-                  "price": { "amount": "118990", "unit": "PRICE_UNIT_MILLI" },
+                  "price": {
+                    "amount": "118990",
+                    "unit": "PRICE_UNIT_MILLI"
+                  },
                   "agentId": "easy",
                   "deepLink": "https://skyscanner.pxf.io/c/ImpactMediaPartnerId2/ImpactAdId2/ImpactCampaignId2?u=https%3A%2F%2Fwww.skyscanner.net%2Ftransport_deeplink%2F4.0%2FUK%2Fen-GB%2FGBP%2Feasy%2F1%2F16574.11235.2022-10-02%2Fair%2Fairli%2Fflights%3Fitinerary%3Dflight%257C-32356%257C241%257C16574%257C2022-10-02T21%253A00%257C11235%257C2022-10-02T22%253A15%257C75%257C-%257C-%257C-%26carriers%3D-32356%26operators%3D-32356%26passengers%3D1%26channel%3Ddataapi%26cabin_class%3Deconomy%26facilitated%3Dfalse%26fps_session_id%3D62e0e62e-6566-4b27-ab6e-26c13fa5ab62%26ticket_price%3D118.99%26is_npt%3Dfalse%26is_multipart%3Dfalse%26client_id%3Dskyscanner_b2b%26request_id%3D677cf355-b82c-49a0-8a4e-d5cec545a977%26q_ids%3DH4sIAAAAAAAAAOOS42JJTSyuFGLmuKUixczxOFyhYeXjmWxGTAqMTkwSjAD37b8QIAAAAA%257C8557565411191358087%257C3%26q_sources%3DJACQUARD%26commercial_filters%3Dfalse%26q_datetime_utc%3D2022-09-15T06%253A11%253A00%26pqid%3Dfalse%26api_logo%3Dhttps%253A%252F%252Flogos.skyscnr.com%252Fimages%252Fpartners%252Fdefault.png%26api_pbs%3Dtrue%26associate_id%3DAFF_TRA_19354_00001%26app_id%3DG4IcGcdmVpjw77HZ3bCQanBnLBKNE76h2RC%25252Bq0zWNAx4vlSXpxjay009pDhvp9R8&associateid=AFF_TRA_19354_00001",
                   "fares": [
@@ -252,7 +350,9 @@
               "transferType": "TRANSFER_TYPE_MANAGED"
             }
           ],
-          "legIds": ["16574-2210022100--32356-0-11235-2210022215"],
+          "legIds": [
+            "16574-2210022100--32356-0-11235-2210022215"
+          ],
           "sustainabilityData": null
         }
       },
@@ -278,9 +378,15 @@
           },
           "durationInMinutes": 90,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["13542-11235-2210020730-2210020900--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "13542-11235-2210020730-2210020900--32356"
+          ]
         },
         "13542-2210021745--32356-0-11235-2210021915": {
           "originPlaceId": "95565051",
@@ -303,9 +409,15 @@
           },
           "durationInMinutes": 90,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["13542-11235-2210021745-2210021915--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "13542-11235-2210021745-2210021915--32356"
+          ]
         },
         "13542-2210021915--32356-0-11235-2210022045": {
           "originPlaceId": "95565051",
@@ -328,9 +440,15 @@
           },
           "durationInMinutes": 90,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["13542-11235-2210021915-2210022045--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "13542-11235-2210021915-2210022045--32356"
+          ]
         },
         "13542-2210022100--32356-0-11235-2210022225": {
           "originPlaceId": "95565051",
@@ -353,9 +471,15 @@
           },
           "durationInMinutes": 85,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["13542-11235-2210022100-2210022225--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "13542-11235-2210022100-2210022225--32356"
+          ]
         },
         "13554-2210022225--32480-0-11235-2210022355": {
           "originPlaceId": "95565050",
@@ -378,9 +502,15 @@
           },
           "durationInMinutes": 90,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32480"],
-          "operatingCarrierIds": ["-32480"],
-          "segmentIds": ["13554-11235-2210022225-2210022355--32480"]
+          "marketingCarrierIds": [
+            "-32480"
+          ],
+          "operatingCarrierIds": [
+            "-32480"
+          ],
+          "segmentIds": [
+            "13554-11235-2210022225-2210022355--32480"
+          ]
         },
         "13771-2210021345--32356-0-11235-2210021505": {
           "originPlaceId": "95565053",
@@ -403,9 +533,15 @@
           },
           "durationInMinutes": 80,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["13771-11235-2210021345-2210021505--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "13771-11235-2210021345-2210021505--32356"
+          ]
         },
         "13771-2210021920--32356-0-11235-2210022035": {
           "originPlaceId": "95565053",
@@ -428,9 +564,15 @@
           },
           "durationInMinutes": 75,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["13771-11235-2210021920-2210022035--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "13771-11235-2210021920-2210022035--32356"
+          ]
         },
         "16574-2210020805--32356-0-11235-2210020920": {
           "originPlaceId": "95565052",
@@ -453,9 +595,15 @@
           },
           "durationInMinutes": 75,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["16574-11235-2210020805-2210020920--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "16574-11235-2210020805-2210020920--32356"
+          ]
         },
         "16574-2210021700--32356-0-11235-2210021815": {
           "originPlaceId": "95565052",
@@ -478,9 +626,15 @@
           },
           "durationInMinutes": 75,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["16574-11235-2210021700-2210021815--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "16574-11235-2210021700-2210021815--32356"
+          ]
         },
         "16574-2210022100--32356-0-11235-2210022215": {
           "originPlaceId": "95565052",
@@ -503,9 +657,15 @@
           },
           "durationInMinutes": 75,
           "stopCount": 0,
-          "marketingCarrierIds": ["-32356"],
-          "operatingCarrierIds": ["-32356"],
-          "segmentIds": ["16574-11235-2210022100-2210022215--32356"]
+          "marketingCarrierIds": [
+            "-32356"
+          ],
+          "operatingCarrierIds": [
+            "-32356"
+          ],
+          "segmentIds": [
+            "16574-11235-2210022100-2210022215--32356"
+          ]
         }
       },
       "segments": {
@@ -1265,7 +1425,11 @@
           "isOptimisedForMobile": true
         }
       },
-      "alliances": { "-32000": { "name": "OneWorld" } }
+      "alliances": {
+        "-32000": {
+          "name": "OneWorld"
+        }
+      }
     },
     "stats": {
       "itineraries": {
@@ -1273,66 +1437,105 @@
         "maxDuration": 90,
         "total": {
           "count": 10,
-          "minPrice": { "amount": "54070", "unit": "PRICE_UNIT_MILLI" }
+          "minPrice": {
+            "amount": "54070",
+            "unit": "PRICE_UNIT_MILLI"
+          }
         },
         "stops": {
           "direct": {
             "total": {
               "count": 10,
-              "minPrice": { "amount": "54070", "unit": "PRICE_UNIT_MILLI" }
+              "minPrice": {
+                "amount": "54070",
+                "unit": "PRICE_UNIT_MILLI"
+              }
             },
             "ticketTypes": {
               "singleTicket": {
                 "count": 10,
-                "minPrice": { "amount": "54070", "unit": "PRICE_UNIT_MILLI" }
+                "minPrice": {
+                  "amount": "54070",
+                  "unit": "PRICE_UNIT_MILLI"
+                }
               },
               "multiTicketNonNpt": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               },
               "multiTicketNpt": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               }
             }
           },
           "oneStop": {
             "total": {
               "count": 0,
-              "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+              "minPrice": {
+                "amount": "",
+                "unit": "PRICE_UNIT_UNSPECIFIED"
+              }
             },
             "ticketTypes": {
               "singleTicket": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               },
               "multiTicketNonNpt": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               },
               "multiTicketNpt": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               }
             }
           },
           "twoPlusStops": {
             "total": {
               "count": 0,
-              "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+              "minPrice": {
+                "amount": "",
+                "unit": "PRICE_UNIT_UNSPECIFIED"
+              }
             },
             "ticketTypes": {
               "singleTicket": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               },
               "multiTicketNonNpt": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               },
               "multiTicketNpt": {
                 "count": 0,
-                "minPrice": { "amount": "", "unit": "PRICE_UNIT_UNSPECIFIED" }
+                "minPrice": {
+                  "amount": "",
+                  "unit": "PRICE_UNIT_UNSPECIFIED"
+                }
               }
             }
           }
