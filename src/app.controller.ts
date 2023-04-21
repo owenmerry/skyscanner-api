@@ -197,7 +197,7 @@ export class AppController {
     const res = await this.appService.flightsLivePricesSimpleSearch(query);
     let data = skyscanner(res.data).search();
     const sessionToken = data.sessionToken;
-    await sleep(1000);
+    await sleep(5000);
 
     const pollFlights = (token: string) => new Promise<SearchSDK>(async (resolve) => {
       const resPoll = await this.appService.flightsLivePricesPoll(token);
