@@ -216,6 +216,8 @@ export class AppController {
     }
     console.log('poll 1', data.status);
 
+    return data;
+
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
       return data;
