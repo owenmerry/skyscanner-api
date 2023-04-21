@@ -9,10 +9,10 @@
     },
     "api": {
         "type": "openapi",
-        "url": "http://localhost:3000/api-yaml",
+        "url": "https://api.flights.owenmerry.com//api-yaml",
         "is_user_authenticated": false
     },
-    "logo_url": "http://localhost:3000/skyscanner.svg",
+    "logo_url": "https://api.flights.owenmerry.com//skyscanner.svg",
     "contact_email": "me@owenmerry.com",
     "legal_info_url": "http://www.owenmerry.com"
 }
