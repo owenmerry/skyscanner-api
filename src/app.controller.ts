@@ -209,6 +209,8 @@ export class AppController {
         flights: pollData.flights.slice(0, 10),
       });
     })
+    
+    return data;
 
     data = await pollFlights(sessionToken);
     if (data.status === 'RESULT_STATUS_COMPLETE') {
