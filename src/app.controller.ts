@@ -185,27 +185,28 @@ export class AppController {
       return: string;
     },
   ): Promise<any> {
+    //setup variables
     const pollTimeout = 5000;
     const endpointTimeout = 5000;
+    const maxPolls = 5;
     const start = Date.now();
     const getExcecutionTime = () => {
       return Date.now() - start;
     };
-    const sleep = (ms: number) => {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
     const query = {
       from: params.from,
       to: params.to,
       depart: params.depart,
       return: queryString.return || '',
     };
+
+    // run create
     const res = await this.appService.flightsLivePricesSearchChatGPT(query);
     let data = skyscanner(res.data).search();
     const dataSaved = skyscanner(res.data).search();
     const sessionToken = data.sessionToken;
-    //await sleep(1000);
 
+    // setup poll function
     const pollFlights = (token: string) => new Promise<SearchSDK>(async (resolve) => {
       const resPoll = await this.appService.flightsLivePricesPollChatGPT(token, { timeout: pollTimeout });
       if (!resPoll) {
@@ -213,7 +214,6 @@ export class AppController {
         return resolve(dataSaved);
       }
       const pollData = skyscanner(resPoll.data).search();
-      //data = pollData;
 
       resolve({
         ...pollData,
@@ -221,42 +221,20 @@ export class AppController {
       });
     })
 
-    //return data;
-
-    data = await pollFlights(sessionToken);
-    console.log('check poll 1 stats', data.status);
-    if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
-      return { ...data, poll: 1, time: getExcecutionTime() };
+    // run polls
+    for (let pollCount = 1; pollCount < maxPolls + 1; pollCount++) {
+      data = await pollFlights(sessionToken);
+      console.log(`check poll ${pollCount} stats`, data.status);
+      if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
+        console.log(`Poll finsihed on poll ${pollCount}`, data.status, getExcecutionTime());
+        return { ...data, poll: pollCount, time: getExcecutionTime() };
+      }
+      console.log(`poll ${pollCount}`, data.status);
     }
-    console.log('poll 1', data.status);
 
-    //return data;
-
-    data = await pollFlights(sessionToken);
-    if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
-      return { ...data, poll: 2, time: getExcecutionTime() };
-    }
-    console.log('poll 2', data.status);
-
-    data = await pollFlights(sessionToken);
-    if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
-      return { ...data, poll: 3, time: getExcecutionTime() };
-    }
-    console.log('poll 3', data.status);
-
-    data = await pollFlights(sessionToken);
-    if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
-      return { ...data, poll: 4, time: getExcecutionTime() };
-    }
-    console.log('poll 4', data.status);
-
-    data = await pollFlights(sessionToken);
-    if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
-      return { ...data, poll: 5, time: getExcecutionTime() };
-    }
-    console.log('poll 5', data.status);
-
-    return { ...data, poll: 6, time: getExcecutionTime() };
+    // end search
+    console.log(`Poll got to max polls`, data.status, getExcecutionTime());
+    return { ...data, poll: 'end', time: getExcecutionTime() };
 
   }
 }
