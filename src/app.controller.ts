@@ -200,6 +200,9 @@ export class AppController {
       depart: params.depart,
       return: queryString.return || '',
     };
+    const buildUrl = () => {
+      return `https://flights.owenmerry.com/search/${query.from}/${query.to}/${query.depart}/${query.return}`;
+    }
 
     // run create
     const res = await this.appService.flightsLivePricesSearchChatGPT(query);
@@ -228,7 +231,12 @@ export class AppController {
       console.log(`check poll ${pollCount} stats`, data.status);
       if (data.status === 'RESULT_STATUS_COMPLETE' || getExcecutionTime() > endpointTimeout) {
         console.log(`Poll finsihed on poll ${pollCount}`, data.status, getExcecutionTime());
-        return { ...data, poll: pollCount, time: getExcecutionTime() };
+        return {
+          ...data,
+          poll: pollCount,
+          time: getExcecutionTime(),
+          searchUrl: buildUrl(),
+        };
       }
       console.log(`poll ${pollCount}`, data.status);
     }
