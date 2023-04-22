@@ -362,7 +362,7 @@ export class AppService {
     );
   }
 
-  flightsLivePricesSimpleSearch(query: {
+  flightsLivePricesSearchChatGPT(query: {
     from: string;
     to: string;
     depart: string;
@@ -439,6 +439,28 @@ export class AppService {
         },
       },
     );
+  }
+
+  flightsLivePricesPollChatGPT(sessionToken: string, { timeout = 5000 }: { timeout: number }): Promise<AxiosResponse<any> | false> {
+    try {
+      return this.httpService.axiosRef.post(
+        `${this.SKYSCANNER_API_URL}/flights/live/search/poll/${sessionToken}`,
+        {},
+        {
+          headers: {
+            'x-api-key': this.SKYSCANNER_API_KEY,
+          },
+          validateStatus: function (status) {
+            return status < 500; // Resolve only if the status code is less than 500
+          },
+          timeout,
+        },
+      ).catch(() => {
+        return false;
+      });
+    } catch (err) {
+      return new Promise((resolve) => resolve(false));
+    }
   }
 
 }
