@@ -186,9 +186,10 @@ export class AppController {
     },
   ): Promise<any> {
     //setup variables
-    const pollTimeout = 5000;
+    const pollTimeout = 2000;
     const endpointTimeout = 5000;
     const maxPolls = 5;
+    const maxFlights = 5;
     const start = Date.now();
     const getExcecutionTime = () => {
       return Date.now() - start;
@@ -217,7 +218,7 @@ export class AppController {
 
       resolve({
         ...pollData,
-        flights: pollData.flights.slice(0, 10),
+        flights: pollData.flights.slice(0, maxFlights),
       });
     })
 
