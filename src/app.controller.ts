@@ -16,7 +16,7 @@ import {
   ApiProperty,
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { send } from 'process';
+import * as contentful from 'contentful'
 
 
 @Module({
@@ -25,7 +25,18 @@ import { send } from 'process';
 })
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  CONTENTFUL_SPACE = '';
+  CONTENTFUL_ENVIRONMENT = '';
+  CONTENTFUL_ACCESS_TOKEN = '';
+
+  constructor(private readonly appService: AppService, private configService: ConfigService,) {
+    this.CONTENTFUL_SPACE =
+      this.configService.get<string>('CONTENTFUL_SPACE') || '';
+    this.CONTENTFUL_ENVIRONMENT =
+      this.configService.get<string>('CONTENTFUL_ENVIRONMENT') || '';
+    this.CONTENTFUL_ACCESS_TOKEN =
+      this.configService.get<string>('CONTENTFUL_ACCESS_TOKEN') || '';
+  }
 
   @Get('/poll/:token')
   @ApiExcludeEndpoint()
@@ -246,4 +257,43 @@ export class AppController {
     return { ...data, poll: 'end', time: getExcecutionTime() };
 
   }
+
+  @Get('/chatgpt')
+  @ApiExcludeEndpoint()
+  async getChatGpt(): Promise<any> {
+    const contentful = require('contentful');
+
+    const client = contentful.createClient({
+      space: this.CONTENTFUL_SPACE,
+      environment: this.CONTENTFUL_ENVIRONMENT,
+      accessToken: this.CONTENTFUL_ACCESS_TOKEN
+    })
+
+    const entries = await client.getEntries({
+      content_type: 'endpoint',
+      limit: 1,
+    })
+
+    return entries.items[0].fields.response;
+  }
+
+  @Get('/chatgpt/open-api')
+  @ApiExcludeEndpoint()
+  async getChatGptOpenApi(): Promise<any> {
+
+    const client = contentful.createClient({
+      space: this.CONTENTFUL_SPACE,
+      environment: this.CONTENTFUL_ENVIRONMENT,
+      accessToken: this.CONTENTFUL_ACCESS_TOKEN
+    })
+
+    const entries = await client.getEntries({
+      content_type: 'endpoint',
+      limit: 1,
+    });
+
+    return entries.items[0].fields.openApi;
+  }
+
+
 }
