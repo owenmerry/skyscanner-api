@@ -199,7 +199,7 @@ export class AppController {
     //setup variables
     const pollTimeout = 2000;
     const endpointTimeout = 5000;
-    const maxPolls = 5;
+    const maxPolls = 200;
     const maxFlights = 5;
     const start = Date.now();
     const getExcecutionTime = () => {
