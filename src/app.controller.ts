@@ -202,8 +202,13 @@ export class AppController {
     //setup variables
     const pollTimeout = 2000;
     const endpointTimeout = 5000;
+<<<<<<< HEAD
     const maxPolls = 5;
     const maxFlights = 500;
+=======
+    const maxPolls = 200;
+    const maxFlights = 5;
+>>>>>>> c4a11570912293d3318b8b1baccfb5415028f376
     const start = Date.now();
     const getExcecutionTime = () => {
       return Date.now() - start;
@@ -299,6 +304,7 @@ export class AppController {
   }
 
 
+<<<<<<< HEAD
   @Get('/chatgpt/description')
   @ApiResponse({
     status: 200,
@@ -356,3 +362,6 @@ export class AppController {
   }
 
 }
+=======
+}
+>>>>>>> c4a11570912293d3318b8b1baccfb5415028f376

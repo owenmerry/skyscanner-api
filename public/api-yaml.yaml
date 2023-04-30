@@ -1,0 +1,217 @@
+openapi: 3.0.0
+paths:
+  /search-simple/{from}/{to}/{depart}:
+    get:
+      operationId: AppController_getSearchSimple
+      parameters:
+        - name: return
+          required: false
+          in: query
+          description: Return date of the flight in yyyy-mm-dd format
+          schema:
+            type: string
+        - name: depart
+          required: true
+          in: path
+          description: Depature date of the flight in yyyy-mm-dd format
+          schema:
+            type: string
+        - name: to
+          required: true
+          in: path
+          description: IATA location flight destination
+          schema:
+            type: string
+        - name: from
+          required: true
+          in: path
+          description: IATA location flight origin
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Creates a flight search
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Search'
+info:
+  title: Flights API
+  description: Flights API search using skyscanner apis
+  version: '1.0'
+  contact: {}
+tags: []
+servers:
+  - url: https://api.flights.owenmerry.com
+components:
+  schemas:
+    DeepLink:
+      type: object
+      properties:
+        link:
+          type: string
+          description: >-
+            Url straight to the booking page of this deal so the price can be
+            retrieved and booked
+        type:
+          type: string
+          description: Type of agent or airline
+        agentImageUrl:
+          type: string
+          description: Image url for the agent or airline selling this flight price
+        agentName:
+          type: string
+          description: Agent or airline that sells the flight
+      required:
+        - link
+        - type
+        - agentImageUrl
+        - agentName
+    Deal:
+      type: object
+      properties:
+        price:
+          type: string
+          description: Price of the flight for this agent in great britisg pounds
+        deepLinks:
+          description: List of urls for this flight
+          type: array
+          items:
+            $ref: '#/components/schemas/DeepLink'
+      required:
+        - price
+        - deepLinks
+    Segment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Segment Id used by skyscanner for this segment
+        from:
+          type: string
+          description: Location from for this flight
+        to:
+          type: string
+          description: Location to for this segment
+        duration:
+          type: number
+          description: Duration of this segment of the flight booking
+        departure:
+          type: string
+          description: Departure of this segment date and time
+        arrival:
+          type: string
+          description: Arrival of this segment date and time
+      required:
+        - id
+        - from
+        - to
+        - duration
+        - departure
+        - arrival
+    Leg:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Leg Id used by skyscanner for  this leg
+        from:
+          type: string
+          description: Location from
+        to:
+          type: string
+          description: Location to
+        duration:
+          type: number
+          description: Duraction of leg of this flight, including stop overs
+        departure:
+          type: string
+          description: Departure time and date
+        arrival:
+          type: string
+          description: Arrival time and date
+        stops:
+          type: number
+          description: How many stops are on this leg of the flight
+        segments:
+          description: Details for the specific flights for the leg of this flight
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment'
+      required:
+        - id
+        - from
+        - to
+        - duration
+        - departure
+        - arrival
+        - stops
+        - segments
+    Flight:
+      type: object
+      properties:
+        itineraryId:
+          type: string
+          description: Id used by skyscanner for flight id
+        deals:
+          description: >-
+            details on each agent prices and url links to the booking for quick
+            access
+          type: array
+          items:
+            $ref: '#/components/schemas/Deal'
+        price:
+          type: string
+          description: cheapest price found for this flight in great british pounds
+        deepLink:
+          type: string
+          description: Url link for the cheapest option found for this flight
+        legs:
+          description: Flight leg details for single or return
+          type: array
+          items:
+            $ref: '#/components/schemas/Leg'
+      required:
+        - itineraryId
+        - deals
+        - price
+        - deepLink
+        - legs
+    Stats:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Number of results found for this search, not all results may show
+        minPrice:
+          type: string
+          description: Cheapest price found for this flight search
+      required:
+        - total
+        - minPrice
+    Search:
+      type: object
+      properties:
+        sessionToken:
+          type: string
+          description: Token used by skyscanner for search id
+        flights:
+          description: Array with all the flights found, limited to a few cheapest flights
+          type: array
+          items:
+            $ref: '#/components/schemas/Flight'
+        stats:
+          description: Stats of the search total amount found, min price etc
+          allOf:
+            - $ref: '#/components/schemas/Stats'
+        searchUrl:
+          description: >-
+            Searh url for search on website so you can see all other flight
+            details related to this search
+          allOf:
+            - $ref: '#/components/schemas/Stats'
+      required:
+        - sessionToken
+        - flights
+        - stats
+        - searchUrl
