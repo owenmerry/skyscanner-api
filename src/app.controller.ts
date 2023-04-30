@@ -3,8 +3,11 @@ import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { SearchSDK } from './helpers/sdk/flight';
+import type { IndicitiveQuote, IndicitiveLeg, SkyscannerAPIIndicitiveResponse } from './helpers/sdk/indicitive';
 import { skyscanner } from './helpers/sdk/flight';
+import { getPrice } from './helpers/sdk/price';
 import { Search } from './helpers/dto/flight';
+import { ChatGPTDescription } from './helpers/dto/chatgpt';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -200,7 +203,7 @@ export class AppController {
     const pollTimeout = 2000;
     const endpointTimeout = 5000;
     const maxPolls = 5;
-    const maxFlights = 5;
+    const maxFlights = 500;
     const start = Date.now();
     const getExcecutionTime = () => {
       return Date.now() - start;
@@ -295,5 +298,61 @@ export class AppController {
     return entries.items[0].fields.openApi;
   }
 
+
+  @Get('/chatgpt/description')
+  @ApiResponse({
+    status: 200,
+    description: 'Get a the best deal for a certain loction',
+    type: ChatGPTDescription,
+  })
+  @ApiQuery({ name: 'from', required: true, description: 'Get location you want to fly from as a IATA code', schema: { type: 'string' } })
+  async getPriceChatGpt(
+    @Query()
+    query: {
+      from: string;
+      month?: number;
+      groupType?: string;
+    },
+  ): Promise<any> {
+    const res = await this.appService.flightsIndicitiveSearchChatGPT(query);
+    const search = res.data;
+    const sortByPrice = (quoteGroups: IndicitiveQuote[]) => {
+      const sorted = quoteGroups.sort(function (a, b) {
+        const quoteA: any = search?.content.results.quotes[a.quoteIds[0]];
+        const quoteB: any = search?.content.results.quotes[b.quoteIds[0]];
+
+        return quoteA.minPrice.amount - quoteB.minPrice.amount;
+      });
+
+      return sorted;
+    }
+    const addPlaces = (items: IndicitiveQuote[], search: SkyscannerAPIIndicitiveResponse) => {
+      const itemsUpdated = items.map((item) => {
+        const quotes = item.quoteIds.map((quoteId) => search.content.results.quotes[quoteId]);
+        const price = getPrice(quotes[0].minPrice.amount, quotes[0].minPrice.unit);
+        const checked = quotes[0].inboundLeg.quoteCreationTimestamp > quotes[0].outboundLeg.quoteCreationTimestamp ? quotes[0].inboundLeg.quoteCreationTimestamp : quotes[0].outboundLeg.quoteCreationTimestamp;
+        const checkedDate = new Date(checked);
+        return {
+          ...item,
+          originPlace: search.content.results.places[quotes[0].outboundLeg.originPlaceId],
+          destinationPlace: search.content.results.places[quotes[0].outboundLeg.destinationPlaceId],
+          destinationCountry: search.content.results.places[item.destinationPlaceId],
+          quotes,
+          price,
+          checkedDate
+        }
+      })
+
+      return itemsUpdated;
+    };
+
+    const sortedByPrice = addPlaces(sortByPrice(search.content.groupingOptions.byRoute.quotesGroups).filter((item) => search.content.results.places[item.destinationPlaceId].iata !== '' || 1 === 1), search);
+
+    return {
+      deal: `You can fly to ${sortedByPrice[0].destinationPlace.name}, ${sortedByPrice[0].destinationCountry.name} (${sortedByPrice[0].destinationPlace.iata}) for ${sortedByPrice[0].price} which is the cheapest deal we have found. You can see this flight search at https://www.skyscanner.net/transport/flights/${sortedByPrice[0].originPlace.iata}/${sortedByPrice[0].destinationPlace.iata}/230${sortedByPrice[0].quotes[0].inboundLeg.departureDateTime.month}${sortedByPrice[0].quotes[0].inboundLeg.departureDateTime.day}/230${sortedByPrice[0].quotes[1].inboundLeg.departureDateTime.month}${sortedByPrice[0].quotes[1].inboundLeg.departureDateTime.day}/`,
+    }
+
+    //return sortedByPrice;
+  }
 
 }

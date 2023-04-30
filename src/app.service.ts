@@ -2,6 +2,7 @@ import { Injectable, ForbiddenException, InternalServerErrorException } from '@n
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
+import type { SkyscannerAPIIndicitiveResponse } from './helpers/sdk/indicitive';
 
 @Injectable()
 export class AppService {
@@ -461,6 +462,74 @@ export class AppService {
     } catch (err) {
       return new Promise((resolve) => resolve(false));
     }
+  }
+
+
+
+  flightsIndicitiveSearchChatGPT(query: {
+    month?: number;
+    endMonth?: number;
+    from: string;
+    to?: string;
+    groupType?: string;
+  }): Promise<AxiosResponse<SkyscannerAPIIndicitiveResponse>> {
+    return this.httpService.axiosRef.post(
+      `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
+      {
+        query: {
+          currency: 'GBP',
+          locale: 'en-GB',
+          market: 'UK',
+          queryLegs: [
+            {
+              originPlace: {
+                queryPlace: {
+                  iata: query.from,
+                },
+              },
+              destinationPlace: {
+                anywhere: true,
+              },
+              dateRange: {
+                startDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+                endDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+              },
+            },
+            {
+              originPlace: {
+                anywhere: true,
+              },
+              destinationPlace: {
+                queryPlace: {
+                  iata: query.from,
+                },
+              },
+              dateRange: {
+                startDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+                endDate: {
+                  year: 2023,
+                  month: query?.month || new Date().getMonth() + 1,
+                },
+              },
+            },
+          ],
+        },
+      },
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+      },
+    );
   }
 
 }
