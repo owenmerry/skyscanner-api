@@ -20,6 +20,8 @@ import {
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import * as contentful from 'contentful'
+import { createApi } from 'unsplash-js';
+import * as nodeFetch from 'node-fetch'
 
 
 @Module({
@@ -31,6 +33,7 @@ export class AppController {
   CONTENTFUL_SPACE = '';
   CONTENTFUL_ENVIRONMENT = '';
   CONTENTFUL_ACCESS_TOKEN = '';
+  UNSPLASH_ACCESS_KEY = '';
 
   constructor(private readonly appService: AppService, private configService: ConfigService,) {
     this.CONTENTFUL_SPACE =
@@ -39,6 +42,8 @@ export class AppController {
       this.configService.get<string>('CONTENTFUL_ENVIRONMENT') || '';
     this.CONTENTFUL_ACCESS_TOKEN =
       this.configService.get<string>('CONTENTFUL_ACCESS_TOKEN') || '';
+    this.UNSPLASH_ACCESS_KEY =
+      this.configService.get<string>('UNSPLASH_ACCESS_KEY') || '';
   }
 
   @Get('/poll/:token')
@@ -202,13 +207,8 @@ export class AppController {
     //setup variables
     const pollTimeout = 2000;
     const endpointTimeout = 5000;
-<<<<<<< HEAD
-    const maxPolls = 5;
-    const maxFlights = 500;
-=======
     const maxPolls = 200;
     const maxFlights = 5;
->>>>>>> c4a11570912293d3318b8b1baccfb5415028f376
     const start = Date.now();
     const getExcecutionTime = () => {
       return Date.now() - start;
@@ -304,7 +304,6 @@ export class AppController {
   }
 
 
-<<<<<<< HEAD
   @Get('/chatgpt/description')
   @ApiResponse({
     status: 200,
@@ -361,7 +360,29 @@ export class AppController {
     //return sortedByPrice;
   }
 
+
+  @Get('/images')
+  @ApiExcludeEndpoint()
+  async getUnsplashImages(
+    @Query()
+    query: {
+      query: string;
+    },
+  ): Promise<any> {
+
+    // on your node server
+    const serverApi = createApi({
+      accessKey: this.UNSPLASH_ACCESS_KEY,
+      fetch: nodeFetch as unknown as typeof fetch,
+    });
+
+    const imageSearch = await serverApi.search.getPhotos({
+      query: query.query,
+      orientation: 'landscape',
+    })
+
+    return imageSearch;
+
+  }
+
 }
-=======
-}
->>>>>>> c4a11570912293d3318b8b1baccfb5415028f376
