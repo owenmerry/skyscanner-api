@@ -124,3 +124,13 @@ export class Search {
     @ApiProperty({ description: 'Searh url for search on website so you can see all other flight details related to this search' })
     searchUrl: Stats;
 }
+
+export class SearchDescription {
+    @ApiProperty({ description: 'Search details with best, cheapest and fastest, prices and flight times with a link to the search' })
+    search: string;
+}
+
+export class ExploreDescription {
+    @ApiProperty({ description: 'Deals from location with prices and search link' })
+    deal: string;
+}

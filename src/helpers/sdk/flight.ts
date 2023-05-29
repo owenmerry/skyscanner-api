@@ -110,6 +110,8 @@ export interface SearchSDK {
   sessionToken: string;
   status: string;
   flights: FlightSDK[];
+  flightsBest: FlightSDK[];
+  flightsFastest: FlightSDK[];
   stats: StatsSDK;
 }
 
@@ -151,6 +153,8 @@ interface LegSDK {
   id: string;
   from: string;
   to: string;
+  fromIata: string;
+  toIata: string;
   duration: number;
   departure: string;
   arrival: string;
@@ -165,6 +169,8 @@ export const skyscanner = (res: SkyscannerAPICreateResponse): SkyscannerSDK => {
     search: () => ({
       sessionToken: res.sessionToken,
       flights: getSortingOptions(res, 'cheapest'),
+      flightsBest: getSortingOptions(res, 'best'),
+      flightsFastest: getSortingOptions(res, 'fastest'),
       stats: stats(res),
       status: res.status,
     }),
@@ -215,6 +221,8 @@ export const getSortingOptions = (
         id: legRef,
         from: res.content.results.places[leg.originPlaceId].name,
         to: res.content.results.places[leg.destinationPlaceId].name,
+        fromIata: res.content.results.places[leg.originPlaceId].iata,
+        toIata: res.content.results.places[leg.destinationPlaceId].iata,
         duration: leg.durationInMinutes,
         departure: getDateTime(
           leg.departureDateTime.day,

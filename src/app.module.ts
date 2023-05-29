@@ -1,5 +1,6 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
+import { ChatGPTController } from './models/chat-gpt/chat-gpt.controller';
 import { AppService } from './app.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
@@ -21,7 +22,7 @@ import { join } from 'path';
       },
     }),
   ],
-  controllers: [AppController],
+  controllers: [AppController, ChatGPTController],
   providers: [AppService],
 })
 export class AppModule {

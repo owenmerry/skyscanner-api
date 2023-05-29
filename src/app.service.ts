@@ -496,7 +496,11 @@ export class AppService {
                 },
               },
               destinationPlace: {
-                anywhere: true,
+                ...(query?.to && query.to !== 'anywhere' ? {
+                  queryPlace: {
+                    iata: query.to,
+                  }
+                } : { anywhere: true }),
               },
               dateRange: {
                 startDate: {
@@ -511,7 +515,11 @@ export class AppService {
             },
             {
               originPlace: {
-                anywhere: true,
+                ...(query?.to && query.to !== 'anywhere' ? {
+                  queryPlace: {
+                    iata: query.to,
+                  }
+                } : { anywhere: true }),
               },
               destinationPlace: {
                 queryPlace: {
