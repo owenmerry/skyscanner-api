@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Headers } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from '../../app.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
@@ -203,7 +203,7 @@ export class ChatGPTController {
       month?: number;
       groupType?: string;
       to?: string;
-    }, @Headers() headers: any
+    }
   ): Promise<any> {
     const res = await this.appService.flightsIndicitiveSearchChatGPT(query);
     const search = res.data;
@@ -251,7 +251,6 @@ export class ChatGPTController {
       ${allFlights}
       [See All Deals](https://www.skyscanner.net/transport/flights-from/${query.from}/)
       `,
-      headers: headers,
     }
   }
 
