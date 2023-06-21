@@ -84,6 +84,7 @@ export class ChatGPTController {
         await this.chatGptService.getChatGPTDescriptionExplore({
           from: params.from,
           to: queryString.to,
+          month: new Date().getMonth() + 2,
         });
 
       return {

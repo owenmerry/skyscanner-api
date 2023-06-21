@@ -335,6 +335,7 @@ export class ChatGptService {
   async getChatGPTDescriptionExplore(query: {
     from: string;
     to?: string;
+    month?: number;
   }): Promise<string> {
     const res = await this.flightsIndicitiveSearchChatGPT(query);
     const search = res.data;
@@ -393,7 +394,7 @@ export class ChatGptService {
     };
 
     const quoteGroup = query.to
-      ? search.content.groupingOptions.byDate.quotesInboundGroups
+      ? search.content.groupingOptions.byDate.quotesOutboundGroups
       : search.content.groupingOptions.byRoute.quotesGroups;
     console.log(search.content.groupingOptions.byDate.quotesOutboundGroups);
     const sortedByPrice = addPlaces(sortByPrice(quoteGroup), search);
@@ -407,8 +408,8 @@ export class ChatGptService {
       }](https://www.skyscanner.net/transport/flights/${
         flight.originPlace.iata
       }/${flight.destinationPlace.iata}/230${
-        flight.quotes[0].inboundLeg.departureDateTime.month
-      }${flight?.quotes[0]?.inboundLeg?.departureDateTime?.day}/230${
+        flight.quotes[0].outboundLeg.departureDateTime.month
+      }${flight?.quotes[0]?.outboundLeg?.departureDateTime?.day}/230${
         flight?.quotes[0]?.inboundLeg?.departureDateTime?.month
       }${flight?.quotes[0]?.inboundLeg?.departureDateTime?.day}/)
       `;
