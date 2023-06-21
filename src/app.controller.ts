@@ -126,47 +126,6 @@ export class AppController {
     return res.data;
   }
 
-  @Get('/search')
-  @ApiExcludeEndpoint()
-  @ApiResponse({
-    status: 200,
-    description: 'Creates a flight search',
-    type: Search,
-  })
-  @ApiQuery({ name: 'from', required: true, description: 'IATA location flight origin' })
-  @ApiQuery({ name: 'to', required: true, description: 'IATA location flight destination' })
-  @ApiQuery({ name: 'depart', required: true, description: 'Depature date of the flight in yyyy-mm-dd format' })
-  @ApiQuery({ name: 'return', required: false, description: 'Return date of the flight in yyyy-mm-dd format' })
-  async getSearch(
-    @Query()
-    query: {
-      from: string;
-      to: string;
-      depart: string;
-      return: string;
-    },
-  ): Promise<any> {
-    console.log('/search endpoint accessed')
-    const res = await this.appService.flightsLivePricesSearchChatGPT(query);
-    const data = skyscanner(res.data).search();
-
-    return data;
-  }
-
-  @Get('/search/:token')
-  @ApiExcludeEndpoint()
-  @ApiParam({ name: 'token', required: true, description: 'sessionToken from the create search `/create` endpoint' })
-  @ApiResponse({
-    status: 200,
-    description: 'Returns flight search using token to get full results',
-  })
-  async getSearchPoll(@Param() params: { token: string }): Promise<any> {
-    const res = await this.appService.flightsLivePricesPoll(params.token);
-    const data = skyscanner(res.data).search();
-
-    return data;
-  }
-
   @Get('/hotel/search')
   @ApiExcludeEndpoint()
   async getHotelSearch(
