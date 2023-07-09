@@ -376,7 +376,7 @@ export class AppService {
           rooms: 1,
           images: 3,
           image_resolution: 'high',
-          boost_official_partners: 1,
+          boost_official_partners: 0,
           sort: '-price',
           limit: 30,
           offset: 0,
