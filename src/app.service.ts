@@ -372,7 +372,7 @@ export class AppService {
           checkin_date: query.depart,
           checkout_date: query.return,
           currency: 'GBP',
-          adults: 2,
+          adults: 1,
           rooms: 1,
           images: 3,
           image_resolution: 'high',
