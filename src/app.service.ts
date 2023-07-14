@@ -326,6 +326,17 @@ export class AppService {
     );
   }
 
+  carriers(): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `${this.SKYSCANNER_API_URL}/flights/carriers`,
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+      },
+    );
+  }
+
   geo(): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.get(
       `${this.SKYSCANNER_API_URL}/geo/hierarchy/flights/en-GB`,

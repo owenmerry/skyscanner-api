@@ -3,7 +3,11 @@ import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { SearchSDK } from './helpers/sdk/flight';
-import type { IndicitiveQuote, IndicitiveLeg, SkyscannerAPIIndicitiveResponse } from './helpers/sdk/indicitive';
+import type {
+  IndicitiveQuote,
+  IndicitiveLeg,
+  SkyscannerAPIIndicitiveResponse,
+} from './helpers/sdk/indicitive';
 import { skyscanner } from './helpers/sdk/flight';
 import { getPrice } from './helpers/sdk/price';
 import { Search } from './helpers/dto/flight';
@@ -19,10 +23,9 @@ import {
   ApiProperty,
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import * as contentful from 'contentful'
+import * as contentful from 'contentful';
 import { createApi } from 'unsplash-js';
-import * as nodeFetch from 'node-fetch'
-
+import * as nodeFetch from 'node-fetch';
 
 @Module({
   imports: [HttpModule],
@@ -35,7 +38,10 @@ export class AppController {
   CONTENTFUL_ACCESS_TOKEN = '';
   UNSPLASH_ACCESS_KEY = '';
 
-  constructor(private readonly appService: AppService, private configService: ConfigService,) {
+  constructor(
+    private readonly appService: AppService,
+    private configService: ConfigService,
+  ) {
     this.CONTENTFUL_SPACE =
       this.configService.get<string>('CONTENTFUL_SPACE') || '';
     this.CONTENTFUL_ENVIRONMENT =
@@ -101,6 +107,14 @@ export class AppController {
     return res.data;
   }
 
+  @Get('/carriers')
+  @ApiExcludeEndpoint()
+  async getCarriers(): Promise<any> {
+    const res = await this.appService.carriers();
+
+    return res.data;
+  }
+
   @Get('/currencies')
   @ApiExcludeEndpoint()
   async getCurrenciess(): Promise<any> {
@@ -144,10 +158,6 @@ export class AppController {
     return data;
   }
 
-
-
-
-
   @Get('/images')
   @ApiExcludeEndpoint()
   async getUnsplashImages(
@@ -156,7 +166,6 @@ export class AppController {
       query: string;
     },
   ): Promise<any> {
-
     // on your node server
     const serverApi = createApi({
       accessKey: this.UNSPLASH_ACCESS_KEY,
@@ -166,10 +175,8 @@ export class AppController {
     const imageSearch = await serverApi.search.getPhotos({
       query: query.query,
       orientation: 'landscape',
-    })
+    });
 
     return imageSearch;
-
   }
-
 }
