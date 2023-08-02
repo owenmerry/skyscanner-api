@@ -7,6 +7,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
 import type { SkyscannerAPIIndicitiveResponse } from './helpers/sdk/indicitive';
+import moment from 'moment';
 
 @Injectable()
 export class AppService {
@@ -128,8 +129,67 @@ export class AppService {
     endMonth?: number;
     from: string;
     to?: string;
+    tripType?: string;
     groupType?: string;
   }): Promise<AxiosResponse<any>> {
+    const isSingle = query.tripType === 'single';
+
+    const queryLegs: any[] = [
+      {
+        originPlace: {
+          queryPlace: {
+            entityId: query.from,
+          },
+        },
+        destinationPlace: {
+          ...(query?.to && query.to !== 'anywhere'
+            ? {
+                queryPlace: {
+                  entityId: query.to,
+                },
+              }
+            : { anywhere: true }),
+        },
+        dateRange: {
+          startDate: {
+            month: query?.month || new Date().getMonth() + 1,
+            year: 2023,
+          },
+          endDate: {
+            month: query?.month || new Date().getMonth() + 1,
+            year: 2023,
+          },
+        },
+      },
+    ];
+    if (!isSingle) {
+      queryLegs.push({
+        originPlace: {
+          ...(query?.to && query.to !== 'anywhere'
+            ? {
+                queryPlace: {
+                  entityId: query.to,
+                },
+              }
+            : { anywhere: true }),
+        },
+        destinationPlace: {
+          queryPlace: {
+            entityId: query.from,
+          },
+        },
+        dateRange: {
+          startDate: {
+            year: 2023,
+            month: query?.month || new Date().getMonth() + 1,
+          },
+          endDate: {
+            year: 2023,
+            month: query?.month || new Date().getMonth() + 1,
+          },
+        },
+      });
+    }
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
       {
@@ -137,60 +197,13 @@ export class AppService {
           currency: 'GBP',
           locale: 'en-GB',
           market: 'UK',
-          queryLegs: [
-            {
-              originPlace: {
-                queryPlace: {
-                  entityId: query.from,
-                },
-              },
-              destinationPlace: {
-                ...(query?.to && query.to !== 'anywhere'
-                  ? {
-                      queryPlace: {
-                        entityId: query.to,
-                      },
-                    }
-                  : { anywhere: true }),
-              },
-              dateRange: {
-                startDate: {
-                  year: 2023,
-                  month: query?.month || new Date().getMonth() + 1,
-                },
-                endDate: {
-                  year: 2023,
-                  month: query?.month || new Date().getMonth() + 1,
-                },
-              },
-            },
-            {
-              originPlace: {
-                ...(query?.to && query.to !== 'anywhere'
-                  ? {
-                      queryPlace: {
-                        entityId: query.to,
-                      },
-                    }
-                  : { anywhere: true }),
-              },
-              destinationPlace: {
-                queryPlace: {
-                  entityId: query.from,
-                },
-              },
-              dateRange: {
-                startDate: {
-                  year: 2023,
-                  month: query?.month || new Date().getMonth() + 1,
-                },
-                endDate: {
-                  year: 2023,
-                  month: query?.month || new Date().getMonth() + 1,
-                },
-              },
-            },
-          ],
+          ...(query.groupType === 'month'
+            ? { dateTimeGroupingType: 'DATE_TIME_GROUPING_TYPE_BY_MONTH' }
+            : {}),
+          ...(query.groupType === 'date'
+            ? { dateTimeGroupingType: 'DATE_TIME_GROUPING_TYPE_BY_DATE' }
+            : {}),
+          queryLegs,
         },
       },
       {
