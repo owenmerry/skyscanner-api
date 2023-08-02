@@ -83,6 +83,7 @@ export class AppController {
     query: {
       from: string;
       month?: number;
+      tripType?: string;
       groupType?: string;
     },
   ): Promise<any> {
