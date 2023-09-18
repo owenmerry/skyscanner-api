@@ -126,6 +126,7 @@ export class AppService {
 
   flightsIndicitiveSearch(query: {
     month?: number;
+    year?: number;
     endMonth?: number;
     from: string;
     to?: string;
@@ -153,11 +154,11 @@ export class AppService {
         dateRange: {
           startDate: {
             month: query?.month || new Date().getMonth() + 1,
-            year: 2023,
+            year: query?.year || 2023,
           },
           endDate: {
             month: query?.month || new Date().getMonth() + 1,
-            year: 2023,
+            year: query?.year || 2023,
           },
         },
       },
@@ -180,16 +181,18 @@ export class AppService {
         },
         dateRange: {
           startDate: {
-            year: 2023,
+            year: query?.year || 2023,
             month: query?.month || new Date().getMonth() + 1,
           },
           endDate: {
-            year: 2023,
+            year: query?.year || 2023,
             month: query?.month || new Date().getMonth() + 1,
           },
         },
       });
     }
+
+    console.log(query?.year);
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
       {

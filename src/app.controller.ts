@@ -83,10 +83,12 @@ export class AppController {
     query: {
       from: string;
       month?: number;
+      year?: number;
       tripType?: string;
       groupType?: string;
     },
   ): Promise<any> {
+    console.log('indicative endpoint');
     const res = await this.appService.flightsIndicitiveSearch(query);
 
     return res.data;
