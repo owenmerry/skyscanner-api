@@ -94,6 +94,31 @@ export class AppController {
     return res.data;
   }
 
+  @Get('/refresh')
+  @ApiExcludeEndpoint()
+  async getRefresh(
+    @Query()
+    query: {
+      token: string;
+      itineraryId: string;
+    },
+  ): Promise<any> {
+    console.log('refresh endpoint');
+    console.log('token:', query.token);
+    console.log('id:', query.itineraryId);
+    const res = await this.appService.flightsRefreshCreate(query);
+
+    return res.data;
+  }
+
+  @Get('/refresh/:token')
+  @ApiExcludeEndpoint()
+  async getRefreshPoll(@Param() params: { token: string }): Promise<any> {
+    const res = await this.appService.flightsRefreshPoll(params.token);
+
+    return res.data;
+  }
+
   @Get('/markets')
   @ApiExcludeEndpoint()
   async getMarkets(): Promise<any> {

@@ -124,6 +124,41 @@ export class AppService {
     );
   }
 
+  flightsRefreshCreate(query: {
+    token: string;
+    itineraryId: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.post(
+      `${this.SKYSCANNER_API_URL}/flights/live/itineraryrefresh/create/${query.token}`,
+      {
+        itineraryId: query.itineraryId,
+      },
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
+  flightsRefreshPoll(sessionToken: string): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.post(
+      `${this.SKYSCANNER_API_URL}/flights/live/itineraryrefresh/poll/${sessionToken}`,
+      {},
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
   flightsIndicitiveSearch(query: {
     month?: number;
     year?: number;
