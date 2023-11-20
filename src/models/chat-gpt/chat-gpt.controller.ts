@@ -8,6 +8,7 @@ import {
   ApiQuery,
   ApiExcludeEndpoint,
   ApiParam,
+  ApiOperation,
 } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import * as contentful from 'contentful';
@@ -39,6 +40,9 @@ export class ChatGPTController {
 
   // Chat GPT
   @Get('/chatgpt/search/:from/')
+  @ApiOperation({
+    summary: 'Flight Search API to get flight details and prices',
+  })
   @ApiResponse({
     status: 200,
     description:
