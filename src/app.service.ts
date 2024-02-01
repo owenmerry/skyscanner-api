@@ -189,11 +189,11 @@ export class AppService {
         dateRange: {
           startDate: {
             month: query?.month || new Date().getMonth() + 1,
-            year: query?.year || 2023,
+            year: query?.year || 2024,
           },
           endDate: {
             month: query?.month || new Date().getMonth() + 1,
-            year: query?.year || 2023,
+            year: query?.year || 2024,
           },
         },
       },
@@ -216,11 +216,11 @@ export class AppService {
         },
         dateRange: {
           startDate: {
-            year: query?.year || 2023,
+            year: query?.year || 2024,
             month: query?.month || new Date().getMonth() + 1,
           },
           endDate: {
-            year: query?.year || 2023,
+            year: query?.year || 2024,
             month: query?.month || new Date().getMonth() + 1,
           },
         },
@@ -289,11 +289,11 @@ export class AppService {
                 },
                 dateRange: {
                   startDate: {
-                    year: 2023,
+                    year: 2024,
                     month: query?.month || new Date().getMonth() + 1,
                   },
                   endDate: {
-                    year: 2023,
+                    year: 2024,
                     month: query?.month || new Date().getMonth() + 1,
                   },
                 },
@@ -315,14 +315,14 @@ export class AppService {
                 },
                 dateRange: {
                   startDate: {
-                    year: 2023,
+                    year: 2024,
                     month:
                       query?.endMonth ||
                       query?.month ||
                       new Date().getMonth() + 1,
                   },
                   endDate: {
-                    year: 2023,
+                    year: 2024,
                     month:
                       query?.endMonth ||
                       query?.month ||

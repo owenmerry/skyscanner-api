@@ -168,11 +168,11 @@ export class ChatGptService {
               },
               dateRange: {
                 startDate: {
-                  year: 2023,
+                  year: 2024,
                   month: query?.month || new Date().getMonth() + 1,
                 },
                 endDate: {
-                  year: 2023,
+                  year: 2024,
                   month: query?.month || new Date().getMonth() + 1,
                 },
               },
@@ -194,11 +194,11 @@ export class ChatGptService {
               },
               dateRange: {
                 startDate: {
-                  year: 2023,
+                  year: 2024,
                   month: query?.month || new Date().getMonth() + 1,
                 },
                 endDate: {
-                  year: 2023,
+                  year: 2024,
                   month: query?.month || new Date().getMonth() + 1,
                 },
               },
