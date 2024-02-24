@@ -90,7 +90,6 @@ export class ChatGPTController {
           to: queryString.to,
           month: new Date().getMonth() + 2,
         });
-
       return {
         search: exploreSearchDescription,
       };

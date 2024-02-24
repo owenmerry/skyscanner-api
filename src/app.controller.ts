@@ -2,28 +2,8 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { SearchSDK } from './helpers/sdk/flight';
-import type {
-  IndicitiveQuote,
-  IndicitiveLeg,
-  SkyscannerAPIIndicitiveResponse,
-} from './helpers/sdk/indicitive';
-import { skyscanner } from './helpers/sdk/flight';
-import { getPrice } from './helpers/sdk/price';
-import { Search } from './helpers/dto/flight';
-import { ChatGPTDescription } from './helpers/dto/chatgpt';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-  ApiQuery,
-  ApiExcludeEndpoint,
-  ApiParam,
-  ApiProperty,
-} from '@nestjs/swagger';
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import * as contentful from 'contentful';
 import { createApi } from 'unsplash-js';
 import * as nodeFetch from 'node-fetch';
 
