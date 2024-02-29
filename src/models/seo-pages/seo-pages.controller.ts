@@ -62,7 +62,7 @@ export class SeoPagesController {
       content_type: 'seoPage',
       limit: 1,
       include: 10,
-      'fields.slug': params.slug,
+      'fields.slug': decodeURIComponent(params.slug),
     });
     const entry = entries?.items[0] || null;
     if (!entry) return null;
