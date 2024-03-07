@@ -1,24 +1,26 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { SeoPagesService } from '../seo-pages/seo-pages.service';
+import { ContentService } from './content.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import * as contentful from 'contentful';
+import { sql } from '../../db/neon';
 
 @Module({
   imports: [HttpModule],
-  providers: [SeoPagesService],
+  providers: [ContentService],
 })
 @Controller()
-export class SeoPagesController {
+export class ContentController {
   CONTENTFUL_SPACE = '';
   CONTENTFUL_ENVIRONMENT = '';
   CONTENTFUL_ACCESS_TOKEN = '';
   UNSPLASH_ACCESS_KEY = '';
+  NEON_DB_CONNECTION = '';
 
   constructor(
-    private readonly seoPagesService: SeoPagesService,
+    private readonly contentService: ContentService,
     private configService: ConfigService,
   ) {
     this.CONTENTFUL_SPACE =
@@ -29,9 +31,11 @@ export class SeoPagesController {
       this.configService.get<string>('CONTENTFUL_ACCESS_TOKEN') || '';
     this.UNSPLASH_ACCESS_KEY =
       this.configService.get<string>('UNSPLASH_ACCESS_KEY') || '';
+    this.NEON_DB_CONNECTION =
+      this.configService.get<string>('NEON_DB_CONNECTION') || '';
   }
 
-  @Get('/seo-pages/pages')
+  @Get('/content/pages')
   @ApiExcludeEndpoint()
   async getSeoPages(): Promise<any> {
     const contentful = require('contentful');
@@ -45,11 +49,16 @@ export class SeoPagesController {
     const entries = await client.getEntries({
       content_type: 'seoPage',
     });
+    const neondb = sql(this.NEON_DB_CONNECTION);
+    const response = await neondb(`SELECT version()`);
+    console.log(response);
+
+    return response;
 
     return entries.items[0].fields.components;
   }
 
-  @Get('/seo-pages/pages/:slug')
+  @Get('/content/pages/:slug')
   @ApiExcludeEndpoint()
   async getSeoPage(@Param() params: { slug: string }): Promise<any> {
     const client = contentful.createClient({
@@ -60,13 +69,20 @@ export class SeoPagesController {
 
     const entries = await client.getEntries({
       content_type: 'seoPage',
-      limit: 1,
-      include: 10,
-      'fields.slug': decodeURIComponent(params.slug),
     });
+
     const entry = entries?.items[0] || null;
     if (!entry) return null;
 
-    return entry;
+    const entriesOrdered = this.contentService.orderEntries(entries);
+    const entriesFiltered = this.contentService.filterEntries(
+      entriesOrdered,
+      params.slug,
+    );
+
+    const entryFound = entriesFiltered?.items[0] || null;
+    if (!entryFound) return null;
+
+    return entryFound;
   }
 }

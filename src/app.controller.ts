@@ -68,7 +68,6 @@ export class AppController {
       groupType?: string;
     },
   ): Promise<any> {
-    console.log('indicative endpoint');
     const res = await this.appService.flightsIndicitiveSearch(query);
 
     return res.data;
@@ -83,9 +82,6 @@ export class AppController {
       itineraryId: string;
     },
   ): Promise<any> {
-    console.log('refresh endpoint');
-    console.log('token:', query.token);
-    console.log('id:', query.itineraryId);
     const res = await this.appService.flightsRefreshCreate(query);
 
     return res.data;

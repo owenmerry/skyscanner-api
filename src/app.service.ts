@@ -227,7 +227,6 @@ export class AppService {
       });
     }
 
-    console.log(query?.year);
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,
       {

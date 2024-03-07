@@ -247,7 +247,6 @@ export class ChatGptService {
           timeout: pollTimeout,
         });
         if (!resPoll) {
-          console.log('came back with false');
           return resolve(dataSaved);
         }
         const pollData = skyscanner(resPoll.data).search();
@@ -311,23 +310,13 @@ export class ChatGptService {
     // run polls
     for (let pollCount = 1; pollCount < maxPolls + 1; pollCount++) {
       data = await pollFlights(sessionToken);
-      console.log(`check poll ${pollCount} stats`, data.status);
       if (
         data.status === 'RESULT_STATUS_COMPLETE' ||
         getExcecutionTime() > endpointTimeout
       ) {
-        console.log(
-          `Poll finsihed on poll ${pollCount}`,
-          data.status,
-          getExcecutionTime(),
-        );
         return buildReturn(data);
       }
-      console.log(`poll ${pollCount}`, data.status);
     }
-
-    // end search
-    console.log(`Poll got to max polls`, data.status, getExcecutionTime());
 
     return buildReturn(data);
   }
@@ -396,7 +385,6 @@ export class ChatGptService {
     const quoteGroup = query.to
       ? search.content.groupingOptions.byDate.quotesOutboundGroups
       : search.content.groupingOptions.byRoute.quotesGroups;
-    console.log(search.content.groupingOptions.byDate.quotesOutboundGroups);
     const sortedByPrice = addPlaces(sortByPrice(quoteGroup), search);
 
     const allFlights = sortedByPrice.splice(0, 10).map((flight) => {

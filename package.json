@@ -23,6 +23,7 @@
     "setup": "npm i"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.9.0",
     "@nestjs/axios": "^0.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",

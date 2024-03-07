@@ -9,8 +9,8 @@ import { join } from 'path';
 
 import { ChatGPTController } from './models/chat-gpt/chat-gpt.controller';
 import { ChatGptService } from './models/chat-gpt/chat-gpt.service';
-import { SeoPagesController } from './models/seo-pages/seo-pages.controller';
-import { SeoPagesService } from './models/seo-pages/seo-pages.service';
+import { ContentController } from './models/content/content.controller';
+import { ContentService } from './models/content/content.service';
 
 @Module({
   imports: [
@@ -26,8 +26,8 @@ import { SeoPagesService } from './models/seo-pages/seo-pages.service';
       },
     }),
   ],
-  controllers: [AppController, ChatGPTController, SeoPagesController],
-  providers: [AppService, ChatGptService, SeoPagesService],
+  controllers: [AppController, ChatGPTController, ContentController],
+  providers: [AppService, ChatGptService, ContentService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
