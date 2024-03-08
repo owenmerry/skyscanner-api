@@ -49,13 +49,16 @@ export class ContentController {
     const entries = await client.getEntries({
       content_type: 'seoPage',
     });
-    const neondb = sql(this.NEON_DB_CONNECTION);
-    const response = await neondb(`SELECT version()`);
-    console.log(response);
 
-    return response;
+    const entry = entries?.items[0] || null;
+    if (!entry) return null;
+    // const neondb = sql(this.NEON_DB_CONNECTION);
+    // const response = await neondb(`SELECT version()`);
+    // console.log(response);
 
-    return entries.items[0].fields.components;
+    // return response;
+
+    return entries;
   }
 
   @Get('/content/pages/:slug')
