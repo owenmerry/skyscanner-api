@@ -4,8 +4,6 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { createApi } from 'unsplash-js';
-import * as nodeFetch from 'node-fetch';
 
 @Module({
   imports: [HttpModule],
@@ -30,47 +28,6 @@ export class AppController {
       this.configService.get<string>('CONTENTFUL_ACCESS_TOKEN') || '';
     this.UNSPLASH_ACCESS_KEY =
       this.configService.get<string>('UNSPLASH_ACCESS_KEY') || '';
-  }
-
-  @Get('/poll/:token')
-  @ApiExcludeEndpoint()
-  async getPoll(@Param() params: { token: string }): Promise<any> {
-    const res = await this.appService.flightsLivePricesPoll(params.token);
-
-    return res.data;
-  }
-
-  @Get('/create')
-  @ApiExcludeEndpoint()
-  async getCreate(
-    @Query()
-    query: {
-      from: string;
-      to: string;
-      depart: string;
-      return: string;
-    },
-  ): Promise<any> {
-    const res = await this.appService.flightsLivePricesCreate(query);
-
-    return res.data;
-  }
-
-  @Get('/price')
-  @ApiExcludeEndpoint()
-  async getPrice(
-    @Query()
-    query: {
-      from: string;
-      month?: number;
-      year?: number;
-      tripType?: string;
-      groupType?: string;
-    },
-  ): Promise<any> {
-    const res = await this.appService.flightsIndicitiveSearch(query);
-
-    return res.data;
   }
 
   @Get('/refresh')
@@ -142,45 +99,5 @@ export class AppController {
     const res = await this.appService.autoSuggestFlights(params.search);
 
     return res.data;
-  }
-
-  @Get('/hotel/search')
-  @ApiExcludeEndpoint()
-  async getHotelSearch(
-    @Query()
-    query: {
-      from: string;
-      to: string;
-      depart: string;
-      return: string;
-      entityId: string;
-    },
-  ): Promise<any> {
-    const res = await this.appService.searchHotels(query);
-    const data = res.data;
-
-    return data;
-  }
-
-  @Get('/images')
-  @ApiExcludeEndpoint()
-  async getUnsplashImages(
-    @Query()
-    query: {
-      query: string;
-    },
-  ): Promise<any> {
-    // on your node server
-    const serverApi = createApi({
-      accessKey: this.UNSPLASH_ACCESS_KEY,
-      fetch: nodeFetch as unknown as typeof fetch,
-    });
-
-    const imageSearch = await serverApi.search.getPhotos({
-      query: query.query,
-      orientation: 'landscape',
-    });
-
-    return imageSearch;
   }
 }
