@@ -91,13 +91,4 @@ export class AppController {
 
     return res.data;
   }
-  @Get('/autosuggest/flights/:search')
-  @ApiExcludeEndpoint()
-  async getAutoSuggestFlights(
-    @Param() params: { search: string },
-  ): Promise<any> {
-    const res = await this.appService.autoSuggestFlights(params.search);
-
-    return res.data;
-  }
 }

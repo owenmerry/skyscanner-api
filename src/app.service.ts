@@ -211,23 +211,4 @@ export class AppService {
       },
     );
   }
-
-  autoSuggestFlights(search: string): Promise<AxiosResponse<any>> {
-    return this.httpService.axiosRef.post(
-      `${this.SKYSCANNER_API_URL}/autosuggest/flights`,
-      {
-        query: {
-          market: 'UK',
-          locale: 'en-GB',
-          searchTerm: search,
-          includedEntityTypes: ['PLACE_TYPE_CITY', 'PLACE_TYPE_AIRPORT'],
-        },
-      },
-      {
-        headers: {
-          'x-api-key': this.SKYSCANNER_API_KEY,
-        },
-      },
-    );
-  }
 }
