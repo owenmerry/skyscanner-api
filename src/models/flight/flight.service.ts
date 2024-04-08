@@ -76,11 +76,11 @@ export class FlightService {
     depart: string;
     returnDate?: string;
   }) {
-    const saltOrRounds = 1;
+    const saltOrRounds = 10;
     const password = `${from}-${to}-${depart}${
       returnDate ? `-${returnDate}` : ''
     }`;
-    const hash = await bcrypt.hash(password, saltOrRounds);
+    //const hash = await bcrypt.hash(password, saltOrRounds);
 
     return password;
   }
