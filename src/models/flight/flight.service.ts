@@ -76,7 +76,7 @@ export class FlightService {
     depart: string;
     returnDate?: string;
   }) {
-    const saltOrRounds = 10;
+    const saltOrRounds = 1;
     const password = `${from}-${to}-${depart}${
       returnDate ? `-${returnDate}` : ''
     }`;
