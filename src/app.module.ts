@@ -12,10 +12,9 @@ import { ChatGPTController } from './models/chat-gpt/chat-gpt.controller';
 import { ChatGptService } from './models/chat-gpt/chat-gpt.service';
 import { ContentController } from './models/content/content.controller';
 import { ContentService } from './models/content/content.service';
-import { FlightService } from './models/flight/flight.service';
-import { FlightController } from './models/flight/flight.controller';
 import { FlightCache } from './models/flight/flight.entity';
 import { FlightModule } from './models/flight/flight.module';
+import { ServiceModule } from './models/service/service.module';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
@@ -45,6 +44,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       },
     }),
     FlightModule,
+    ServiceModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       serveStaticOptions: {
