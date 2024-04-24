@@ -35,6 +35,8 @@ export class ServiceService {
         query.from
       }&fly_to=${encodeURIComponent(query.to)}&date_from=${encodeURIComponent(
         this.getDateYYYYMMDDToDisplay(query.depart, 'DD/MM/YYYY'),
+      )}&date_to=${encodeURIComponent(
+        this.getDateYYYYMMDDToDisplay(query.depart, 'DD/MM/YYYY'),
       )}${
         hasReturn
           ? `&return_from=${encodeURIComponent(
