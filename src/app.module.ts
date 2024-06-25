@@ -16,6 +16,7 @@ import { FlightCache } from './models/flight/flight.entity';
 import { FlightModule } from './models/flight/flight.module';
 import { ServiceModule } from './models/service/service.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { CarHireModule } from './models/car-hire/car-hire.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       },
     }),
     FlightModule,
+    CarHireModule,
     ServiceModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
