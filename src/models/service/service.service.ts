@@ -9,6 +9,7 @@ import * as moment from 'moment';
 export class ServiceService {
   KIWI_API_KEY = '';
   GOOGLE_API_KEY_ROUTES = '';
+  TRIPADVISOR_API_KEY = '';
 
   constructor(
     private readonly httpService: HttpService,
@@ -17,6 +18,8 @@ export class ServiceService {
     this.KIWI_API_KEY = this.configService.get<string>('KIWI_API_KEY') || '';
     this.GOOGLE_API_KEY_ROUTES =
       this.configService.get<string>('GOOGLE_API_KEY_ROUTES') || '';
+    this.TRIPADVISOR_API_KEY =
+      this.configService.get<string>('TRIPADVISOR_API_KEY') || '';
   }
 
   getDateYYYYMMDDToDisplay = (dateTime?: string, display?: string) => {
@@ -61,7 +64,7 @@ export class ServiceService {
     );
   }
 
-  getGoogleRoutes(query: {}): Promise<AxiosResponse<any>> {
+  getGoogleRoutes(): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.post(
       `https://routes.googleapis.com/directions/v2:computeRoutes`,
       {
@@ -82,6 +85,19 @@ export class ServiceService {
             'routes.duration,routes.distanceMeters,routes.legs.stepsOverview,routes.legs.localizedValues',
           'X-Goog-Api-Key': this.GOOGLE_API_KEY_ROUTES,
         },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
+  getTripAdvisorLocations(query: {
+    searchQuery: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en`,
+      {
         validateStatus: function (status) {
           return status < 500; // Resolve only if the status code is less than 500
         },

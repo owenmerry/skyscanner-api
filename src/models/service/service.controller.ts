@@ -30,11 +30,21 @@ export class ServiceController {
 
   @Get('service/google/routes')
   @ApiExcludeEndpoint()
-  async getGoogleRoutes(
+  async getGoogleRoutes(): Promise<any> {
+    const res = await this.serviceService.getGoogleRoutes();
+
+    return res.data;
+  }
+
+  @Get('service/tripadvisor/locations')
+  @ApiExcludeEndpoint()
+  async getTripAdvisorLocations(
     @Query()
-    query: {},
+    query: {
+      searchQuery: string;
+    },
   ): Promise<any> {
-    const res = await this.serviceService.getGoogleRoutes(query);
+    const res = await this.serviceService.getTripAdvisorLocations(query);
 
     return res.data;
   }
