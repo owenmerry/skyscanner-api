@@ -74,4 +74,49 @@ export class ServiceController {
 
     return res.data;
   }
+
+  @Get('service/weather/forcast')
+  @ApiExcludeEndpoint()
+  async getWeatherForecast(
+    @Query()
+    query: {
+      latitude: string;
+      longitude: string;
+    },
+  ): Promise<any> {
+    const res = await this.serviceService.getWeatherForecast(query);
+
+    return res.data;
+  }
+
+  @Get('service/weather/past')
+  @ApiExcludeEndpoint()
+  async getWeatherPastDays(
+    @Query()
+    query: {
+      latitude: string;
+      longitude: string;
+      days: number;
+    },
+  ): Promise<any> {
+    const res = await this.serviceService.getWeatherPastDays(query);
+
+    return res.data;
+  }
+
+  @Get('service/weather/history')
+  @ApiExcludeEndpoint()
+  async getWeatherHistory(
+    @Query()
+    query: {
+      latitude: string;
+      longitude: string;
+      start_date: number;
+      end_date: number;
+    },
+  ): Promise<any> {
+    const res = await this.serviceService.getWeatherHistory(query);
+
+    return res.data;
+  }
 }

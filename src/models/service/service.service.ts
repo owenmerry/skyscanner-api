@@ -142,4 +142,46 @@ export class ServiceService {
       },
     );
   }
+  getWeatherForecast(query: {
+    latitude: string;
+    longitude: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://api.open-meteo.com/v1/forecast?latitude=${query.latitude}&longitude=${query.longitude}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`,
+      {
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+  getWeatherPastDays(query: {
+    latitude: string;
+    longitude: string;
+    days: number;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://api.open-meteo.com/v1/forecast?latitude=${query.latitude}&longitude=${query.longitude}&past_days=${query.days}&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`,
+      {
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+  getWeatherHistory(query: {
+    latitude: string;
+    longitude: string;
+    start_date: number;
+    end_date: number;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://archive-api.open-meteo.com/v1/era5?latitude=${query.latitude}&longitude=${query.longitude}&start_date=${query.start_date}&end_date=${query.end_date}&hourly=temperature_2m`,
+      {
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
 }
