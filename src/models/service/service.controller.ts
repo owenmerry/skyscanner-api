@@ -48,4 +48,30 @@ export class ServiceController {
 
     return res.data;
   }
+
+  @Get('service/tripadvisor/images')
+  @ApiExcludeEndpoint()
+  async getTripAdvisorImages(
+    @Query()
+    query: {
+      location_id: string;
+    },
+  ): Promise<any> {
+    const res = await this.serviceService.getTripAdvisorImages(query);
+
+    return res.data;
+  }
+
+  @Get('service/tripadvisor/details')
+  @ApiExcludeEndpoint()
+  async getTripAdvisorDetails(
+    @Query()
+    query: {
+      location_id: string;
+    },
+  ): Promise<any> {
+    const res = await this.serviceService.getTripAdvisorDetails(query);
+
+    return res.data;
+  }
 }

@@ -98,6 +98,44 @@ export class ServiceService {
     return this.httpService.axiosRef.get(
       `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en`,
       {
+        headers: {
+          origin: 'https://api.flights.owenmerry.com',
+          referer: 'https://api.flights.owenmerry.com',
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
+  getTripAdvisorImages(query: {
+    location_id: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://api.content.tripadvisor.com/api/v1/location/${query.location_id}/photos?language=en&key=${this.TRIPADVISOR_API_KEY}`,
+      {
+        headers: {
+          origin: 'https://api.flights.owenmerry.com',
+          referer: 'https://api.flights.owenmerry.com',
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
+  getTripAdvisorDetails(query: {
+    location_id: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://api.content.tripadvisor.com/api/v1/location/${query.location_id}/details?language=en&currency=USD&key=${this.TRIPADVISOR_API_KEY}`,
+      {
+        headers: {
+          origin: 'https://api.flights.owenmerry.com',
+          referer: 'https://api.flights.owenmerry.com',
+        },
         validateStatus: function (status) {
           return status < 500; // Resolve only if the status code is less than 500
         },
