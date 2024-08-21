@@ -183,6 +183,7 @@ export class FlightService {
     month?: number;
     year?: number;
     endMonth?: number;
+    endYear?: number;
     from: string;
     to?: string;
     tripType?: string;
@@ -213,8 +214,8 @@ export class FlightService {
             year: query?.year || 2024,
           },
           endDate: {
-            month: query?.month || new Date().getMonth() + 1,
-            year: query?.year || 2024,
+            month: query?.endMonth || query?.month || new Date().getMonth() + 1,
+            year: query?.endYear || query?.year || 2024,
           },
         },
       },
@@ -237,16 +238,27 @@ export class FlightService {
         },
         dateRange: {
           startDate: {
-            year: query?.year || 2024,
             month: query?.month || new Date().getMonth() + 1,
+            year: query?.year || 2024,
           },
           endDate: {
-            year: query?.year || 2024,
-            month: query?.month || new Date().getMonth() + 1,
+            month: query?.endMonth || query?.month || new Date().getMonth() + 1,
+            year: query?.endYear || query?.year || 2024,
           },
         },
       });
     }
+
+    console.log({
+      startDate: {
+        month: query?.month || new Date().getMonth() + 1,
+        year: query?.year || 2024,
+      },
+      endDate: {
+        month: query?.endMonth || query?.month || new Date().getMonth() + 1,
+        year: query?.endYear || query?.year || 2024,
+      },
+    });
 
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/indicative/search`,

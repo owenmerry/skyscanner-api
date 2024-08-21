@@ -27,4 +27,15 @@ export class ServiceController {
 
     return res.data;
   }
+
+  @Get('service/google/routes')
+  @ApiExcludeEndpoint()
+  async getGoogleRoutes(
+    @Query()
+    query: {},
+  ): Promise<any> {
+    const res = await this.serviceService.getGoogleRoutes(query);
+
+    return res.data;
+  }
 }

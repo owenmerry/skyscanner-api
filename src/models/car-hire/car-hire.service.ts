@@ -71,12 +71,32 @@ export class CarHireService {
     };
   }): Promise<AxiosResponse<any>> {
     const departDefault = moment().add(1, 'days').format('YYYY-MM-DD');
-    const returnDefault = moment(query.return || query.depart)
+    const returnDefault = moment(query.depart)
       .endOf('month')
       .format('YYYY-MM-DD');
     const groupTypeDefault = 'DATE_TIME_GROUPING_TYPE_BY_MONTH';
     const departMoment = moment(query.depart || departDefault);
     const returnMoment = moment(query.return || returnDefault);
+
+    console.log({
+      query: {
+        market: 'UK',
+        locale: 'en-GB',
+        currency: 'GBP',
+        pickUpDate: {
+          day: departMoment.format('D'),
+          month: departMoment.format('M'),
+          year: departMoment.format('YYYY'),
+        },
+        dropOffDate: {
+          day: returnMoment.format('D'),
+          month: returnMoment.format('M'),
+          year: returnMoment.format('YYYY'),
+        },
+        dateTimeGroupingType: query.groupType || groupTypeDefault,
+        pickUpDropOffLocationEntityId: query.from,
+      },
+    });
 
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_CAR_HIRE_API_URL}/carhire/indicative/search`,

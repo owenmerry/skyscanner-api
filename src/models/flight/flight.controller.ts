@@ -87,10 +87,16 @@ export class FlightController {
       from: string;
       month?: number;
       year?: number;
+      endMonth?: number;
+      endYear?: number;
       tripType?: string;
       groupType?: string;
     },
   ): Promise<any> {
+    console.log('check',{
+      endMonth: query.endMonth,
+      endYear: query.endYear,
+    });
     const res = await this.flightService.flightsIndicitiveSearch(query);
 
     return res.data;

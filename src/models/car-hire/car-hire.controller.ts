@@ -70,6 +70,8 @@ export class CarHireController {
   ): Promise<any> {
     const res = await this.carHireService.carHireIndicitiveSearch({ query });
 
+    console.log(res.data);
+
     return res.data;
   }
 }
