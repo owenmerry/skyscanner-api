@@ -92,7 +92,16 @@ export class ServiceService {
     );
   }
 
-  getTripAdvisorLocations(query: { searchQuery: string }): string {
-    return `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en`;
+  getTripAdvisorLocations(query: {
+    searchQuery: string;
+  }): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en`,
+      {
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
   }
 }

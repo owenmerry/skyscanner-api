@@ -44,8 +44,8 @@ export class ServiceController {
       searchQuery: string;
     },
   ): Promise<any> {
-    const res = this.serviceService.getTripAdvisorLocations(query);
+    const res = await this.serviceService.getTripAdvisorLocations(query);
 
-    return res;
+    return res.data;
   }
 }
