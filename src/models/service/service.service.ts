@@ -94,9 +94,13 @@ export class ServiceService {
 
   getTripAdvisorLocations(query: {
     searchQuery: string;
+    latLong: string;
   }): Promise<AxiosResponse<any>> {
+    console.log(
+      `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en&latLong=${query.latLong}`,
+    );
     return this.httpService.axiosRef.get(
-      `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en`,
+      `https://api.content.tripadvisor.com/api/v1/location/search?key=${this.TRIPADVISOR_API_KEY}&searchQuery=${query.searchQuery}&category=attractions&language=en&latLong=${query.latLong}`,
       {
         headers: {
           origin: 'https://api.flights.owenmerry.com',

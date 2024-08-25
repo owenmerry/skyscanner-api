@@ -42,6 +42,7 @@ export class ServiceController {
     @Query()
     query: {
       searchQuery: string;
+      latLong: string;
     },
   ): Promise<any> {
     const res = await this.serviceService.getTripAdvisorLocations(query);
