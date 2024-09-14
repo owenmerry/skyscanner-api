@@ -176,8 +176,8 @@ export class ServiceService {
   getWeatherHistory(query: {
     latitude: string;
     longitude: string;
-    start_date: number;
-    end_date: number;
+    start_date: string;
+    end_date: string;
   }): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.get(
       `https://archive-api.open-meteo.com/v1/era5?latitude=${query.latitude}&longitude=${query.longitude}&start_date=${query.start_date}&end_date=${query.end_date}&hourly=temperature_2m`,

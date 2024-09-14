@@ -112,8 +112,8 @@ export class ServiceController {
     query: {
       latitude: string;
       longitude: string;
-      start_date: number;
-      end_date: number;
+      start_date: string;
+      end_date: string;
     },
   ): Promise<any> {
     const res = await this.serviceService.getWeatherHistory(query);
