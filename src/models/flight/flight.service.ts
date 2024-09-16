@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightCache } from './flight.entity';
+import { FlightCache, FlightHistoryPrice } from './flight.entity';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
-import * as bcrypt from 'bcrypt';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import * as moment from 'moment';
+import { waitMinutes } from '../../helpers/sdk/wait';
+import { getPriceRaw } from '../../helpers/sdk/price';
 
 @Injectable()
 export class FlightService {
@@ -19,6 +20,8 @@ export class FlightService {
   constructor(
     @InjectRepository(FlightCache)
     private flightCacheRepository: Repository<FlightCache>,
+    @InjectRepository(FlightHistoryPrice)
+    private flightHistoryPriceRepository: Repository<FlightHistoryPrice>,
     private readonly httpService: HttpService,
     private configService: ConfigService,
   ) {
@@ -43,6 +46,38 @@ export class FlightService {
           .format('YYYY-MM-DD HH:mm:ss'),
       })
       .execute();
+  }
+
+  @Cron(CronExpression.EVERY_HOUR)
+  async runEveryHour() {
+    //cancun
+    const query = {
+      from: '27544008',
+      to: '27540602',
+      depart: '2024-11-08',
+      return: '2024-11-24',
+    };
+    const create = await this.flightsLivePricesCreate({
+      ...query,
+    });
+
+    await waitMinutes(2);
+
+    const poll = await this.flightsLivePricesPoll(create.data.sessionToken);
+
+    if (poll.data.status === 'RESULT_STATUS_COMPLETE') {
+      const searchHash = await this.createHash({
+        ...query,
+        returnDate: query.return,
+      });
+      this.createHistoryPrice({
+        searchHash,
+        price: getPriceRaw(
+          poll.data.content.stats.itineraries.total.minPrice.amount,
+          poll.data.content.stats.itineraries.total.minPrice.unit,
+        ),
+      });
+    }
   }
 
   async createCache({
@@ -77,12 +112,30 @@ export class FlightService {
     returnDate?: string;
   }) {
     const saltOrRounds = 10;
-    const password = `${from}-${to}-${depart}${
-      returnDate ? `-${returnDate}` : ''
-    }`;
-    //const hash = await bcrypt.hash(password, saltOrRounds);
+    const hash = `${from}-${to}-${depart}${returnDate ? `-${returnDate}` : ''}`;
+    //const hashCrypt = await bcrypt.hash(password, saltOrRounds);
 
-    return password;
+    return hash;
+  }
+
+  async createHistoryPrice({
+    price,
+    searchHash,
+  }: {
+    price?: number;
+    searchHash: string;
+  }) {
+    return await this.flightHistoryPriceRepository.save({
+      price,
+      searchHash,
+      created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+    });
+  }
+
+  async getHistoryPrice({ searchHash }: { searchHash: string }) {
+    return await this.flightHistoryPriceRepository.findBy({
+      searchHash,
+    });
   }
 
   flightsLivePricesCreate(query: {

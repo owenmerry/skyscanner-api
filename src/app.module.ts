@@ -12,7 +12,7 @@ import { ChatGPTController } from './models/chat-gpt/chat-gpt.controller';
 import { ChatGptService } from './models/chat-gpt/chat-gpt.service';
 import { ContentController } from './models/content/content.controller';
 import { ContentService } from './models/content/content.service';
-import { FlightCache } from './models/flight/flight.entity';
+import { FlightCache, FlightHistoryPrice } from './models/flight/flight.entity';
 import { FlightModule } from './models/flight/flight.module';
 import { ServiceModule } from './models/service/service.module';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -37,7 +37,7 @@ import { CarHireModule } from './models/car-hire/car-hire.module';
       logging: true,
       synchronize: true, // shouldn't really be used in production - may lose data
       ssl: true,
-      entities: [FlightCache],
+      entities: [FlightCache, FlightHistoryPrice],
       extra: {
         ssl: {
           rejectUnauthorized: false,

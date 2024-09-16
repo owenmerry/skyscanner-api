@@ -6,6 +6,7 @@ import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { createApi } from 'unsplash-js';
 import * as nodeFetch from 'node-fetch';
+import { getPriceRaw } from '../../helpers/sdk/price';
 
 @Module({
   imports: [HttpModule],
@@ -73,8 +74,31 @@ export class FlightController {
 
   @Get('/poll/:token')
   @ApiExcludeEndpoint()
-  async getPoll(@Param() params: { token: string }): Promise<any> {
+  async getPoll(
+    @Param() params: { token: string },
+    @Query()
+    query: {
+      from: string;
+      to: string;
+      depart: string;
+      return: string;
+    },
+  ): Promise<any> {
     const res = await this.flightService.flightsLivePricesPoll(params.token);
+
+    if (query.from && res.data.status === 'RESULT_STATUS_COMPLETE') {
+      const searchHash = await this.flightService.createHash({
+        ...query,
+        returnDate: query.return,
+      });
+      this.flightService.createHistoryPrice({
+        searchHash,
+        price: getPriceRaw(
+          res.data.content.stats.itineraries.total.minPrice.amount,
+          res.data.content.stats.itineraries.total.minPrice.unit,
+        ),
+      });
+    }
 
     return res.data;
   }
@@ -93,7 +117,7 @@ export class FlightController {
       groupType?: string;
     },
   ): Promise<any> {
-    console.log('check',{
+    console.log('check', {
       endMonth: query.endMonth,
       endYear: query.endYear,
     });
@@ -101,6 +125,41 @@ export class FlightController {
 
     return res.data;
   }
+
+  @Get('/flight/history')
+  @ApiExcludeEndpoint()
+  async getFlightHistory(
+    @Query()
+    query: {
+      from: string;
+      to: string;
+      depart: string;
+      return: string;
+    },
+  ): Promise<any> {
+    const searchHash = await this.flightService.createHash({
+      ...query,
+      returnDate: query.return,
+    });
+    const prices = await this.flightService.getHistoryPrice({ searchHash });
+    if (prices) {
+      return prices;
+    }
+
+    return Error;
+  }
+
+  @Get('/autosuggest/flights/:search')
+  @ApiExcludeEndpoint()
+  async getAutoSuggestFlights(
+    @Param() params: { search: string },
+  ): Promise<any> {
+    const res = await this.flightService.autoSuggestFlights(params.search);
+
+    return res.data;
+  }
+
+  // move below
 
   @Get('/hotel/search')
   @ApiExcludeEndpoint()
@@ -140,15 +199,5 @@ export class FlightController {
     });
 
     return imageSearch;
-  }
-
-  @Get('/autosuggest/flights/:search')
-  @ApiExcludeEndpoint()
-  async getAutoSuggestFlights(
-    @Param() params: { search: string },
-  ): Promise<any> {
-    const res = await this.flightService.autoSuggestFlights(params.search);
-
-    return res.data;
   }
 }
