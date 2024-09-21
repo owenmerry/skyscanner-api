@@ -143,7 +143,7 @@ export class FlightService {
     to: string;
     depart: string;
     return: string;
-  }): Promise<AxiosResponse<{ sessionToken: string }>> {
+  }): Promise<AxiosResponse<{ sessionToken: string; status: string }>> {
     const hasReturn = !!query.return;
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/live/search/create`,
