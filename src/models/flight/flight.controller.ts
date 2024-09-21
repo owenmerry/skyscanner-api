@@ -82,6 +82,7 @@ export class FlightController {
       to: string;
       depart: string;
       return: string;
+      mode: 'complete';
     },
   ): Promise<any> {
     const res = await this.flightService.flightsLivePricesPoll(params.token);
@@ -98,7 +99,14 @@ export class FlightController {
           res.data.content.stats.itineraries.total.minPrice.unit,
         ),
       });
+
+      return res.data;
     }
+
+    if (query.mode === 'complete')
+      return {
+        status: 'RESULT_STATUS_INCOMPLETE',
+      };
 
     return res.data;
   }
