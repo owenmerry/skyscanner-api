@@ -35,6 +35,21 @@ export class ServiceController {
 
     return res.data;
   }
+  @Get('service/google/places/autosuggest')
+  @ApiExcludeEndpoint()
+  async getGooglePlacesAutosuggest(
+    @Query()
+    query: {
+      search: string;
+      latitude: number;
+      longitude: number;
+      radius: number;
+    },
+  ): Promise<any> {
+    const res = await this.serviceService.getGoogleAutocomplete(query);
+
+    return res.data;
+  }
 
   @Get('service/tripadvisor/locations')
   @ApiExcludeEndpoint()

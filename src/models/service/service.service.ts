@@ -8,7 +8,7 @@ import * as moment from 'moment';
 @Injectable()
 export class ServiceService {
   KIWI_API_KEY = '';
-  GOOGLE_API_KEY_ROUTES = '';
+  GOOGLE_API_KEY_LOCATION = '';
   TRIPADVISOR_API_KEY = '';
 
   constructor(
@@ -16,8 +16,8 @@ export class ServiceService {
     private configService: ConfigService,
   ) {
     this.KIWI_API_KEY = this.configService.get<string>('KIWI_API_KEY') || '';
-    this.GOOGLE_API_KEY_ROUTES =
-      this.configService.get<string>('GOOGLE_API_KEY_ROUTES') || '';
+    this.GOOGLE_API_KEY_LOCATION =
+      this.configService.get<string>('GOOGLE_API_KEY_LOCATION') || '';
     this.TRIPADVISOR_API_KEY =
       this.configService.get<string>('TRIPADVISOR_API_KEY') || '';
   }
@@ -83,7 +83,43 @@ export class ServiceService {
           accept: 'application/json',
           'X-Goog-FieldMask':
             'routes.duration,routes.distanceMeters,routes.legs.stepsOverview,routes.legs.localizedValues',
-          'X-Goog-Api-Key': this.GOOGLE_API_KEY_ROUTES,
+          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
+  getGoogleAutocomplete(query: {
+    search: string;
+    latitude: number;
+    longitude: number;
+    radius: number;
+  }): Promise<AxiosResponse<any>> {
+    const locationBias =
+      query.latitude && query.longitude && query.radius
+        ? {
+            circle: {
+              center: {
+                latitude: query.latitude,
+                longitude: query.longitude,
+              },
+              radius: query.radius,
+            },
+          }
+        : undefined;
+    return this.httpService.axiosRef.post(
+      `https://places.googleapis.com/v1/places:autocomplete`,
+      {
+        input: query.search,
+        locationBias,
+      },
+      {
+        headers: {
+          accept: 'application/json',
+          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
         },
         validateStatus: function (status) {
           return status < 500; // Resolve only if the status code is less than 500
