@@ -51,6 +51,18 @@ export class ServiceController {
     return res.data;
   }
 
+  @Get('service/google/places/details/:placeId')
+  @ApiExcludeEndpoint()
+  async getGooglePlacesDetails(
+    @Param() params: { placeId: string },
+  ): Promise<any> {
+    const res = await this.serviceService.getGooglePlacesDetails(
+      params.placeId,
+    );
+
+    return res.data;
+  }
+
   @Get('service/tripadvisor/locations')
   @ApiExcludeEndpoint()
   async getTripAdvisorLocations(

@@ -128,6 +128,22 @@ export class ServiceService {
     );
   }
 
+  getGooglePlacesDetails(placeId: string): Promise<AxiosResponse<any>> {
+    return this.httpService.axiosRef.get(
+      `https://places.googleapis.com/v1/places/${placeId}`,
+      {
+        headers: {
+          accept: 'application/json',
+          'X-Goog-FieldMask': '*',
+          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+  }
+
   getTripAdvisorLocations(query: {
     searchQuery: string;
     latLong: string;
