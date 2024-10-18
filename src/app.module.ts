@@ -17,6 +17,11 @@ import { FlightModule } from './models/flight/flight.module';
 import { ServiceModule } from './models/service/service.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CarHireModule } from './models/car-hire/car-hire.module';
+//game
+import { LeaderBoard } from './models/game/game.entity';
+import { GameModule } from './models/game/game.module';
+import { GameController } from './models/game/game.controller';
+import { GameService } from './models/game/game.service';
 
 @Module({
   imports: [
@@ -37,7 +42,7 @@ import { CarHireModule } from './models/car-hire/car-hire.module';
       logging: true,
       synchronize: true, // shouldn't really be used in production - may lose data
       ssl: true,
-      entities: [FlightCache, FlightHistoryPrice],
+      entities: [FlightCache, FlightHistoryPrice, LeaderBoard],
       extra: {
         ssl: {
           rejectUnauthorized: false,
@@ -47,6 +52,7 @@ import { CarHireModule } from './models/car-hire/car-hire.module';
     FlightModule,
     CarHireModule,
     ServiceModule,
+    GameModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       serveStaticOptions: {
