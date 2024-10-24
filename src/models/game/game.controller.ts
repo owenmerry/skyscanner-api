@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import sanitize from 'sanitize-html';
+import * as sanitizeHtml from 'sanitize-html';
 
 @Module({
   imports: [HttpModule],
@@ -48,12 +48,12 @@ export class GameController {
     },
   ): Promise<any> {
     const bodySanitize = {
-      name: sanitize(body.name, {
+      name: sanitizeHtml(body.name, {
         allowedTags: [],
         allowedAttributes: {},
       }),
       amount: Number(
-        sanitize(body.amount.toString(), {
+        sanitizeHtml(body.amount.toString(), {
           allowedTags: [],
           allowedAttributes: {},
         }),
@@ -73,5 +73,17 @@ export class GameController {
   @ApiExcludeEndpoint()
   async getClosePrice(): Promise<any> {
     return this.gameService.getClosePriceScores();
+  }
+  @Get('game/sanitize')
+  @ApiExcludeEndpoint()
+  async getSanitizr(): Promise<any> {
+    try{
+      return sanitizeHtml('<b>done bold</b>', {
+        allowedTags: [],
+        allowedAttributes: {},
+      });
+    } catch (error) {
+      return `error: ${error}`;
+    }
   }
 }
