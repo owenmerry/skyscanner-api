@@ -50,4 +50,8 @@ export class GameService {
     const all = await this.leaderBoard.findBy({ award: 'price-left' });
     return all.sort((a, b) => b.amount - a.amount).slice(0, 10);
   }
+  async getClosePriceScores() {
+    const all = await this.leaderBoard.findBy({ award: 'price-left' });
+    return all.sort((a, b) => b.amount + a.amount).slice(0, 10);
+  }
 }

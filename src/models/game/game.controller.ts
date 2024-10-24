@@ -69,4 +69,9 @@ export class GameController {
   async getPriceLeft(): Promise<any> {
     return this.gameService.getTopPriceScores();
   }
+  @Get('game/top/price-close')
+  @ApiExcludeEndpoint()
+  async getClosePrice(): Promise<any> {
+    return this.gameService.getClosePriceScores();
+  }
 }
