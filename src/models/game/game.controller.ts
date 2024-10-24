@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import sanitize from 'sanitize-html';
 
 @Module({
   imports: [HttpModule],
@@ -46,8 +47,21 @@ export class GameController {
       amount: number;
     },
   ): Promise<any> {
+    const bodySanitize = {
+      name: sanitize(body.name, {
+        allowedTags: [],
+        allowedAttributes: {},
+      }),
+      amount: Number(
+        sanitize(body.amount.toString(), {
+          allowedTags: [],
+          allowedAttributes: {},
+        }),
+      ),
+    };
     return this.gameService.createNewScore({
-      ...body,
+      ...bodySanitize,
+      award: body.award,
     });
   }
   @Get('game/top/price-left')
