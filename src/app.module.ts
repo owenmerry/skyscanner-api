@@ -22,6 +22,7 @@ import { LeaderBoard } from './models/game/game.entity';
 import { GameModule } from './models/game/game.module';
 import { GameController } from './models/game/game.controller';
 import { GameService } from './models/game/game.service';
+import { FlightService } from './models/flight/flight.service';
 
 @Module({
   imports: [

@@ -12,5 +12,6 @@ import { HttpModule } from '@nestjs/axios';
   ],
   providers: [FlightService],
   controllers: [FlightController],
+  exports: [FlightService],
 })
 export class FlightModule {}

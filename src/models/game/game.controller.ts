@@ -37,14 +37,40 @@ export class GameController {
       this.configService.get<string>('UNSPLASH_ACCESS_KEY') || '';
   }
 
-  @Post('game/save')
+  // @Post('game/save')
+  // @ApiExcludeEndpoint()
+  // async save(
+  //   @Body()
+  //   body: {
+  //     name: string;
+  //     award: 'price-left' | 'stops' | 'round-the-world';
+  //     amount: number;
+  //   },
+  // ): Promise<any> {
+  //   const bodySanitize = {
+  //     name: sanitizeHtml(body.name, {
+  //       allowedTags: [],
+  //       allowedAttributes: {},
+  //     }),
+  //     amount: Number(
+  //       sanitizeHtml(body.amount.toString(), {
+  //         allowedTags: [],
+  //         allowedAttributes: {},
+  //       }),
+  //     ),
+  //   };
+  //   return this.gameService.createNewScore({
+  //     ...bodySanitize,
+  //     award: body.award,
+  //   });
+  // }
+  @Post('game/won')
   @ApiExcludeEndpoint()
-  async save(
+  async getWon(
     @Body()
     body: {
       name: string;
-      award: 'price-left' | 'stops' | 'round-the-world';
-      amount: number;
+      stops: string;
     },
   ): Promise<any> {
     const bodySanitize = {
@@ -52,17 +78,26 @@ export class GameController {
         allowedTags: [],
         allowedAttributes: {},
       }),
-      amount: Number(
-        sanitizeHtml(body.amount.toString(), {
-          allowedTags: [],
-          allowedAttributes: {},
-        }),
-      ),
+      stops: sanitizeHtml(body.stops, {
+        allowedTags: [],
+        allowedAttributes: {},
+      }),
     };
-    return this.gameService.createNewScore({
-      ...bodySanitize,
-      award: body.award,
+    const stops = bodySanitize.stops.split(',');
+    const award = await this.gameService.getAward(stops);
+    if (!award) return false;
+
+    await this.gameService.createNewScore({
+      name: bodySanitize.name,
+      award: award.award,
+      amount: award.amount,
     });
+
+    return {
+      name: bodySanitize.name,
+      award: award.award,
+      amount: award.amount,
+    };
   }
   @Get('game/top/price-left')
   @ApiExcludeEndpoint()
@@ -71,19 +106,7 @@ export class GameController {
   }
   @Get('game/top/price-close')
   @ApiExcludeEndpoint()
-  async getClosePrice(): Promise<any> {
+  async getPriceClose(): Promise<any> {
     return this.gameService.getClosePriceScores();
-  }
-  @Get('game/sanitize')
-  @ApiExcludeEndpoint()
-  async getSanitizr(): Promise<any> {
-    try{
-      return sanitizeHtml('<b>done bold</b>', {
-        allowedTags: [],
-        allowedAttributes: {},
-      });
-    } catch (error) {
-      return `error: ${error}`;
-    }
   }
 }
