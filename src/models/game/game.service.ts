@@ -110,10 +110,15 @@ export class GameService {
       sortedFlights.forEach((item: any) => {
         const itemQuote = priceRes.data.content.results.quotes[item];
         if (itemQuote.outboundLeg.destinationPlaceId === stopNext) {
+          const formatNumber = (str: string) => str.padStart(2, '0');
           const quote = itemQuote;
           const quotePrice = quote.minPrice.amount;
           const quotePriceUnit = quote.minPrice.unit;
-          const quoteDate = `${quote.outboundLeg.departureDateTime.year}-${quote.outboundLeg.departureDateTime.month}-${quote.outboundLeg.departureDateTime.day}`;
+          const quoteDate = `${
+            quote.outboundLeg.departureDateTime.year
+          }-${formatNumber(
+            String(quote.outboundLeg.departureDateTime.month),
+          )}-${formatNumber(String(quote.outboundLeg.departureDateTime.day))}`;
           const priceFoundLoop = quotePrice;
           if (priceFoundLoop < priceFound || searching) {
             priceFound = getPriceRaw(priceFoundLoop, quotePriceUnit) || 0;
@@ -135,21 +140,25 @@ export class GameService {
     async function calculateTotalPrice(
       stops: string[],
       flightService: FlightService,
-    ): Promise<number> {
+    ): Promise<{ total?: number; left?: number; save: boolean }> {
       // Use Promise.all to fetch all prices concurrently
       const prices = [];
       let currentDate = moment().format('YYYY-MM-DD');
       for (let index = 0; index < stops.length; index++) {
         const stopItem = stops[index];
-        const price = await getPriceForStop(
-          stopItem,
-          stops[index - 1],
-          stops[index + 1],
-          flightService,
-          currentDate,
-        );
-        prices.push(price.price);
-        currentDate = price.date;
+        if (index !== stops.length - 1) {
+          const price = await getPriceForStop(
+            stopItem,
+            stops[index - 1],
+            stops[index + 1],
+            flightService,
+            currentDate,
+          );
+          console.log('check if save', price, index, stops.length);
+          if (price.price === 0) return { save: false };
+          prices.push(price.price);
+          currentDate = price.date;
+        }
       }
 
       // Sum up all the prices
@@ -157,17 +166,45 @@ export class GameService {
         (total, price) => Number(total) + Number(price),
         0,
       );
-      return 1000 - totalPrice;
+      return { left: 1000 - totalPrice, total: totalPrice, save: true };
+    }
+    const checkFirstAndLastStrings = (
+      arr: string[],
+      targets: string[],
+    ): boolean => {
+      if (arr.length === 0) return false;
+
+      const firstString = arr[0];
+      const lastString = arr[arr.length - 1];
+
+      return targets.includes(firstString) && targets.includes(lastString);
+    };
+    if (
+      !checkFirstAndLastStrings(stops, [
+        '27544008',
+        '95565051',
+        '95565053',
+        '95565052',
+        '95565050',
+        '95565054',
+      ])
+    ) {
+      return undefined;
+    }
+    const totalPrice = await calculateTotalPrice(stops, this.flightService);
+    if (!totalPrice.left || !totalPrice.save) {
+      console.log('exited here checking save', totalPrice);
+      return undefined;
     }
 
-    const totalPrice = await calculateTotalPrice(stops, this.flightService);
-
-    if (totalPrice > 0) {
+    if (totalPrice.left > 0 && totalPrice.left < 1000) {
       return {
         award: 'price-left',
-        amount: totalPrice,
+        amount: totalPrice.left,
       };
     }
+
+    console.log('exited here bottom');
 
     return undefined;
   }

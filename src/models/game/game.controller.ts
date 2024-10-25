@@ -99,6 +99,12 @@ export class GameController {
       amount: award.amount,
     };
   }
+  @Get('game/won/test')
+  @ApiExcludeEndpoint()
+  async getTest(): Promise<any> {
+    const award = await this.gameService.getAward([]);
+    return award;
+  }
   @Get('game/top/price-left')
   @ApiExcludeEndpoint()
   async getPriceLeft(): Promise<any> {
