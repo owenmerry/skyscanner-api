@@ -197,7 +197,7 @@ export class GameService {
       return undefined;
     }
 
-    if (totalPrice.left > 0 && totalPrice.left < 1000) {
+    if (totalPrice.left > 0 && totalPrice.left < 1000 && stops.length > 3) {
       return {
         award: 'price-left',
         amount: totalPrice.left,
