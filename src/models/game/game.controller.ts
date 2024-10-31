@@ -91,12 +91,14 @@ export class GameController {
       name: bodySanitize.name,
       award: award.award,
       amount: award.amount,
+      stops: bodySanitize.stops,
     });
 
     return {
       name: bodySanitize.name,
       award: award.award,
       amount: award.amount,
+      stops: bodySanitize.stops,
     };
   }
   @Get('game/won/test')

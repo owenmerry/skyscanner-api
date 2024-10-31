@@ -36,15 +36,18 @@ export class GameService {
     award,
     name,
     amount,
+    stops,
   }: {
     award: 'price-left' | 'stops' | 'round-the-world';
     name: string;
     amount: number;
+    stops: string;
   }) {
     return await this.leaderBoard.save({
       award,
       name,
       amount,
+      stops,
       created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
     });
   }

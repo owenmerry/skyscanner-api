@@ -20,6 +20,11 @@ export class LeaderBoard {
   @Column()
   amount: number;
 
+  @Column({
+    nullable: true,
+  })
+  stops: string;
+
   @CreateDateColumn()
   created_at: Date;
 
