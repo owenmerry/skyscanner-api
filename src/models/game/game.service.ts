@@ -60,6 +60,21 @@ export class GameService {
     const all = await this.leaderBoard.findBy({ award: 'price-left' });
     return all.sort((a, b) => a.amount - b.amount).slice(0, 10);
   }
+  async getMostStopsScores(): Promise<LeaderBoard[]> {
+    const all = await this.leaderBoard
+      .createQueryBuilder('leaderboard')
+      .addSelect(
+        "LENGTH(leaderboard.stops) - LENGTH(REPLACE(leaderboard.stops, ',', '')) + 1",
+        'stopCount',
+      )
+      .where('leaderboard.stops IS NOT NULL')
+      .orderBy(
+        "LENGTH(leaderboard.stops) - LENGTH(REPLACE(leaderboard.stops, ',', '')) + 1",
+        'DESC',
+      )
+      .getMany();
+    return all.slice(0, 10);
+  }
   async getAward(
     stops: string[],
   ): Promise<

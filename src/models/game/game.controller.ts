@@ -5,6 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import * as sanitizeHtml from 'sanitize-html';
+import { LeaderBoard } from './game.entity';
 
 @Module({
   imports: [HttpModule],
@@ -109,12 +110,17 @@ export class GameController {
   }
   @Get('game/top/price-left')
   @ApiExcludeEndpoint()
-  async getPriceLeft(): Promise<any> {
+  async getPriceLeft(): Promise<LeaderBoard[]> {
     return this.gameService.getTopPriceScores();
   }
   @Get('game/top/price-close')
   @ApiExcludeEndpoint()
-  async getPriceClose(): Promise<any> {
+  async getPriceClose(): Promise<LeaderBoard[]> {
     return this.gameService.getClosePriceScores();
+  }
+  @Get('game/top/stops')
+  @ApiExcludeEndpoint()
+  async getTopStops(): Promise<LeaderBoard[]> {
+    return this.gameService.getMostStopsScores();
   }
 }
