@@ -31,7 +31,11 @@ export class LeaderBoard {
   @UpdateDateColumn()
   updated_at: Date;
 
-  stopsCount(): number {
-    return this.stops.split(',').length - 2;
+  getStopsCount(): number {
+    return this.stops.split(',').length;
+  }
+
+  getStopOversCount(): number {
+    return this.getStopsCount() - 2;
   }
 }

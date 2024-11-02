@@ -110,23 +110,38 @@ export class GameController {
   }
   @Get('game/top/price-left')
   @ApiExcludeEndpoint()
-  async getPriceLeft(): Promise<LeaderBoard[]> {
-    return this.gameService.getTopPriceScores();
+  async getPriceLeft(): Promise<any> {
+    const list = await this.gameService.getTopPriceScores();
+    return list.map((item, key) => ({
+      id: item.id,
+      name: item.name,
+      amount: item.amount,
+      position: key + 1,
+      award: item.award,
+    }));
   }
   @Get('game/top/price-close')
   @ApiExcludeEndpoint()
-  async getPriceClose(): Promise<LeaderBoard[]> {
-    return this.gameService.getClosePriceScores();
+  async getPriceClose(): Promise<any> {
+    const list = await this.gameService.getClosePriceScores();
+    return list.map((item, key) => ({
+      id: item.id,
+      name: item.name,
+      amount: item.amount,
+      position: key + 1,
+      award: item.award,
+    }));
   }
   @Get('game/top/stops')
   @ApiExcludeEndpoint()
   async getTopStops(): Promise<any> {
     const list = await this.gameService.getMostStopsScores();
-    const listAdd = list.map((item) => ({
-      ...item,
-      stopsCount: item.stopsCount(),
+    return list.map((item, key) => ({
+      id: item.id,
+      name: item.name,
+      position: key + 1,
+      stopsCount: item.getStopsCount(),
+      stopOversCount: item.getStopOversCount(),
     }));
-
-    return listAdd;
   }
 }
