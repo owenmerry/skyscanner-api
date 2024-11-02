@@ -120,7 +120,13 @@ export class GameController {
   }
   @Get('game/top/stops')
   @ApiExcludeEndpoint()
-  async getTopStops(): Promise<LeaderBoard[]> {
-    return this.gameService.getMostStopsScores();
+  async getTopStops(): Promise<any> {
+    const list = await this.gameService.getMostStopsScores();
+    const listAdd = list.map((item) => ({
+      ...item,
+      stopsCount: item.stopsCount(),
+    }));
+
+    return listAdd;
   }
 }
