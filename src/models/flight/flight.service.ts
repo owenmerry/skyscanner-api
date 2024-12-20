@@ -48,37 +48,37 @@ export class FlightService {
       .execute();
   }
 
-  @Cron(CronExpression.EVERY_HOUR)
-  async runEveryHour() {
-    //cancun
-    const query = {
-      from: '27544008',
-      to: '27540602',
-      depart: '2024-11-08',
-      return: '2024-11-24',
-    };
-    const create = await this.flightsLivePricesCreate({
-      ...query,
-    });
+  // @Cron(CronExpression.EVERY_HOUR)
+  // async runEveryHour() {
+  //   //cancun
+  //   const query = {
+  //     from: '27544008',
+  //     to: '27540602',
+  //     depart: '2024-11-08',
+  //     return: '2024-11-24',
+  //   };
+  //   const create = await this.flightsLivePricesCreate({
+  //     ...query,
+  //   });
 
-    await waitMinutes(2);
+  //   await waitMinutes(2);
 
-    const poll = await this.flightsLivePricesPoll(create.data.sessionToken);
+  //   const poll = await this.flightsLivePricesPoll(create.data.sessionToken);
 
-    if (poll.data.status === 'RESULT_STATUS_COMPLETE') {
-      const searchHash = await this.createHash({
-        ...query,
-        returnDate: query.return,
-      });
-      this.createHistoryPrice({
-        searchHash,
-        price: getPriceRaw(
-          poll.data.content.stats.itineraries.total.minPrice.amount,
-          poll.data.content.stats.itineraries.total.minPrice.unit,
-        ),
-      });
-    }
-  }
+  //   if (poll.data.status === 'RESULT_STATUS_COMPLETE') {
+  //     const searchHash = await this.createHash({
+  //       ...query,
+  //       returnDate: query.return,
+  //     });
+  //     this.createHistoryPrice({
+  //       searchHash,
+  //       price: getPriceRaw(
+  //         poll.data.content.stats.itineraries.total.minPrice.amount,
+  //         poll.data.content.stats.itineraries.total.minPrice.unit,
+  //       ),
+  //     });
+  //   }
+  // }
 
   async createCache({
     sessionToken,
@@ -333,6 +333,9 @@ export class FlightService {
         headers: {
           'x-api-key': this.SKYSCANNER_API_KEY,
         },
+        // validateStatus: function (status) {
+        //   return status < 500; // Resolve only if the status code is less than 500
+        // },
       },
     );
   }

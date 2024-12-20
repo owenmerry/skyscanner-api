@@ -1,15 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import {
-  ContentfulCollection,
-  Entry,
-  EntryCollection,
-  EntrySkeletonType,
-} from 'contentful';
+import { EntryCollection, EntrySkeletonType } from 'contentful';
 
 @Injectable()
 export class ContentService {
-  constructor() {}
-
   searchWithWildcard(urlWithWildCard: string, url: string) {
     let w = urlWithWildCard.replace(/[.+^${}()|[\]\\]/g, '\\$&'); // regexp escape
     const re = new RegExp(

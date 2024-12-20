@@ -16,6 +16,7 @@ export class ContentController {
   CONTENTFUL_SPACE = '';
   CONTENTFUL_ENVIRONMENT = '';
   CONTENTFUL_ACCESS_TOKEN = '';
+  CONTENTFUL_PREVIEW_ACCESS_TOKEN = '';
   UNSPLASH_ACCESS_KEY = '';
   NEON_DB_CONNECTION = '';
 
@@ -29,6 +30,8 @@ export class ContentController {
       this.configService.get<string>('CONTENTFUL_ENVIRONMENT') || '';
     this.CONTENTFUL_ACCESS_TOKEN =
       this.configService.get<string>('CONTENTFUL_ACCESS_TOKEN') || '';
+    this.CONTENTFUL_PREVIEW_ACCESS_TOKEN =
+      this.configService.get<string>('CONTENTFUL_PREVIEW_ACCESS_TOKEN') || '';
     this.UNSPLASH_ACCESS_KEY =
       this.configService.get<string>('UNSPLASH_ACCESS_KEY') || '';
     this.NEON_DB_CONNECTION =
@@ -37,13 +40,20 @@ export class ContentController {
 
   @Get('/content/pages')
   @ApiExcludeEndpoint()
-  async getSeoPages(): Promise<any> {
-    const contentful = require('contentful');
-
+  async getSeoPages(
+    @Query()
+    query: {
+      preview?: string;
+    },
+  ): Promise<any> {
+    const isPreview = query.preview === 'true' ? true : false;
     const client = contentful.createClient({
       space: this.CONTENTFUL_SPACE,
       environment: this.CONTENTFUL_ENVIRONMENT,
-      accessToken: this.CONTENTFUL_ACCESS_TOKEN,
+      accessToken: isPreview
+        ? this.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+        : this.CONTENTFUL_ACCESS_TOKEN,
+      host: isPreview ? 'preview.contentful.com' : undefined,
     });
 
     const entries = await client.getEntries({
@@ -63,11 +73,21 @@ export class ContentController {
 
   @Get('/content/pages/:slug')
   @ApiExcludeEndpoint()
-  async getSeoPage(@Param() params: { slug: string }): Promise<any> {
+  async getSeoPage(
+    @Param() params: { slug: string },
+    @Query()
+    query: {
+      preview?: string;
+    },
+  ): Promise<any> {
+    const isPreview = query.preview === 'true' ? true : false;
     const client = contentful.createClient({
       space: this.CONTENTFUL_SPACE,
       environment: this.CONTENTFUL_ENVIRONMENT,
-      accessToken: this.CONTENTFUL_ACCESS_TOKEN,
+      accessToken: isPreview
+        ? this.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+        : this.CONTENTFUL_ACCESS_TOKEN,
+      host: isPreview ? 'preview.contentful.com' : undefined,
     });
 
     const entries = await client.getEntries({

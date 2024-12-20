@@ -23,6 +23,7 @@ import { GameModule } from './models/game/game.module';
 import { GameController } from './models/game/game.controller';
 import { GameService } from './models/game/game.service';
 import { FlightService } from './models/flight/flight.service';
+import { WebScraperService } from './models/web-scraper/web-scraper.service';
 
 @Module({
   imports: [
@@ -62,7 +63,7 @@ import { FlightService } from './models/flight/flight.service';
     }),
   ],
   controllers: [AppController, ChatGPTController, ContentController],
-  providers: [AppService, ChatGptService, ContentService],
+  providers: [AppService, ChatGptService, ContentService, WebScraperService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
