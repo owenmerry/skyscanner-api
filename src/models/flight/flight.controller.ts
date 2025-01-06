@@ -65,7 +65,7 @@ export class FlightController {
     }
 
     const res = await this.flightService.flightsLivePricesCreate(query);
-    const save = await this.flightService.createCache({
+    await this.flightService.createCache({
       sessionToken: res.data.sessionToken,
       searchHash,
     });

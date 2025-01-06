@@ -84,9 +84,10 @@ export class FlightService {
     sessionToken,
     searchHash,
   }: {
-    sessionToken: string;
+    sessionToken?: string;
     searchHash: string;
   }) {
+    if (!sessionToken) return;
     return await this.flightCacheRepository.save({
       sessionToken,
       searchHash,
@@ -145,6 +146,7 @@ export class FlightService {
     return: string;
   }): Promise<AxiosResponse<{ sessionToken: string; status: string }>> {
     const hasReturn = !!query.return;
+
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/flights/live/search/create`,
       {

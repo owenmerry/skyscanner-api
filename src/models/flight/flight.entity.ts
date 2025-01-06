@@ -36,7 +36,7 @@ export class FlightHistoryPrice {
     nullable: true,
     type: 'float',
   })
-  price?: number;
+  price?: number | null;
 
   @CreateDateColumn()
   created_at: Date;

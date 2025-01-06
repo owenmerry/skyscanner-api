@@ -60,7 +60,7 @@ export class CarHireService {
     );
   }
 
-  carHireIndicitiveSearch({
+  async carHireIndicitiveSearch({
     query,
   }: {
     query: {
@@ -98,7 +98,7 @@ export class CarHireService {
       },
     });
 
-    return this.httpService.axiosRef.post(
+    const carHireRes = this.httpService.axiosRef.post(
       `${this.SKYSCANNER_CAR_HIRE_API_URL}/carhire/indicative/search`,
       {
         query: {
@@ -125,6 +125,9 @@ export class CarHireService {
         },
       },
     );
+    console.log(await carHireRes);
+
+    return carHireRes;
   }
 
   autoSuggest(search: string): Promise<AxiosResponse<any>> {
