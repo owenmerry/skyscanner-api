@@ -396,4 +396,30 @@ export class FlightService {
       },
     );
   }
+
+  async geoNearest(query: {
+    latitude: number;
+    longitude: number;
+  }): Promise<AxiosResponse<any>> {
+    console.log('check Query', {
+      query,
+    });
+    return this.httpService.axiosRef.post(
+      `${this.SKYSCANNER_API_URL}/geo/hierarchy/flights/nearest`,
+      {
+        locale: 'en-GB',
+        locator: {
+          coordinates: {
+            latitude: query.latitude,
+            longitude: query.longitude,
+          },
+        },
+      },
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+      },
+    );
+  }
 }

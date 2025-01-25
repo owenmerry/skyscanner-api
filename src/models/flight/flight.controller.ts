@@ -219,4 +219,18 @@ export class FlightController {
 
     return imageSearch;
   }
+
+  @Get('flights/geo/nearest')
+  @ApiExcludeEndpoint()
+  async getGeoNearest(
+    @Query()
+    query: {
+      latitude: number;
+      longitude: number;
+    },
+  ): Promise<any> {
+    const res = await this.flightService.geoNearest(query);
+
+    return res.data;
+  }
 }
