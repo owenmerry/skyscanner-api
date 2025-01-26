@@ -72,6 +72,33 @@ export class ServiceService {
     travelMode: string;
     arrivalTime: string;
   }): Promise<AxiosResponse<any>> {
+
+    return this.httpService.axiosRef.post(
+      `https://routes.googleapis.com/directions/v2:computeRoutes`,
+      {
+        origin: {
+          address: '193 dover road, folkestone, ct196ng',
+        },
+        destination: {
+          address: '19 porters way, west drayton, ub79aa',
+        },
+        travelMode: 'TRANSIT',
+        arrivalTime: '2024-08-03T15:13:23Z',
+        computeAlternativeRoutes: true,
+      },
+      {
+        headers: {
+          accept: 'application/json',
+          'X-Goog-FieldMask':
+            'routes.duration,routes.distanceMeters,routes.legs.stepsOverview,routes.legs.localizedValues',
+          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
+        },
+        validateStatus: function (status) {
+          return status < 500; // Resolve only if the status code is less than 500
+        },
+      },
+    );
+
     console.log({
       origin: query.originId
         ? { placeId: query.originId }
