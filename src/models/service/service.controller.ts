@@ -35,6 +35,10 @@ export class ServiceController {
     query: {
       originAddress: string;
       destinationAddress: string;
+      originLat: string;
+      originLng: string;
+      destinationLat: string;
+      destinationLng: string;
       originId: string;
       destinationId: string;
       travelMode: string;
