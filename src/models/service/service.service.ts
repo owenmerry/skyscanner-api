@@ -64,18 +64,45 @@ export class ServiceService {
     );
   }
 
-  getGoogleRoutes(): Promise<AxiosResponse<any>> {
+  getGoogleRoutes(query: {
+    originAddress?: string;
+    destinationAddress?: string;
+    originId?: string;
+    destinationId?: string;
+    travelMode: string;
+    arrivalTime: string;
+  }): Promise<AxiosResponse<any>> {
+    console.log({
+      origin: query.originId
+        ? { placeId: query.originId }
+        : {
+            address: query.originAddress,
+          },
+      destination: query.destinationId
+        ? { placeId: query.destinationId }
+        : {
+            address: query.destinationAddress,
+          },
+      travelMode: query.travelMode,
+      arrivalTime: query.arrivalTime,
+      computeAlternativeRoutes: true,
+    });
+
     return this.httpService.axiosRef.post(
       `https://routes.googleapis.com/directions/v2:computeRoutes`,
       {
-        origin: {
-          address: '193 dover road, folkestone, ct196ng',
-        },
-        destination: {
-          address: '33 chaucer drive, bermonsey, se154ta',
-        },
-        travelMode: 'TRANSIT',
-        arrivalTime: '2025-04-03T15:13:23Z',
+        origin: query.originId
+          ? { placeId: query.originId }
+          : {
+              address: query.originAddress,
+            },
+        destination: query.originId
+          ? { placeId: query.originId }
+          : {
+              address: query.originAddress,
+            },
+        travelMode: query.travelMode,
+        arrivalTime: query.arrivalTime,
         computeAlternativeRoutes: true,
       },
       {
