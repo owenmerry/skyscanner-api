@@ -72,10 +72,10 @@ export class ServiceService {
           address: '193 dover road, folkestone, ct196ng',
         },
         destination: {
-          address: '19 porters way, west drayton, ub79aa',
+          address: '33 chaucer drive, bermonsey, se154ta',
         },
         travelMode: 'TRANSIT',
-        arrivalTime: '2024-08-03T15:13:23Z',
+        arrivalTime: '2025-04-03T15:13:23Z',
         computeAlternativeRoutes: true,
       },
       {
