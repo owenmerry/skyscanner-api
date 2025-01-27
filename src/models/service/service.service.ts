@@ -65,17 +65,51 @@ export class ServiceService {
   }
 
   getGoogleRoutes(query: {
-    originAddress?: string;
-    destinationAddress?: string;
     originId?: string;
-    destinationId?: string;
     originLat: string;
     originLng: string;
+    originAddress?: string;
+    destinationId?: string;
     destinationLat: string;
     destinationLng: string;
+    destinationAddress?: string;
     travelMode: string;
     arrivalTime: string;
   }): Promise<AxiosResponse<any>> {
+    console.log('query', {
+      origin: query.originId
+        ? { placeId: query.originId }
+        : query.originLat && query.originLng
+        ? {
+            location: {
+              latLng: {
+                latitude: query.originLat,
+                longitude: query.originLng,
+              },
+            },
+          }
+        : {
+            address: query.originAddress,
+          },
+      destination: query.destinationId
+        ? { placeId: query.destinationId }
+        : query.destinationLat && query.destinationLng
+        ? {
+            location: {
+              latLng: {
+                latitude: query.destinationLat,
+                longitude: query.destinationLng,
+              },
+            },
+          }
+        : {
+            address: query.destinationAddress,
+          },
+      travelMode: query.travelMode,
+      arrivalTime: query.arrivalTime,
+      computeAlternativeRoutes: true,
+    });
+
     return this.httpService.axiosRef.post(
       `https://routes.googleapis.com/directions/v2:computeRoutes`,
       {
@@ -84,7 +118,7 @@ export class ServiceService {
           : query.originLat && query.originLng
           ? {
               location: {
-                lngLat: {
+                latLng: {
                   latitude: query.originLat,
                   longitude: query.originLng,
                 },
@@ -98,7 +132,7 @@ export class ServiceService {
           : query.destinationLat && query.destinationLng
           ? {
               location: {
-                lngLat: {
+                latLng: {
                   latitude: query.destinationLat,
                   longitude: query.destinationLng,
                 },
