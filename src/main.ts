@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { XRobotsTagMiddleware } from './middleware/x-robots.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,6 +10,7 @@ async function bootstrap() {
       ? process.env.CORS_DOMAINS.split(',')
       : [''],
   });
+  app.use(new XRobotsTagMiddleware().use);
 
   const config = new DocumentBuilder()
     .setTitle('Flights API')
