@@ -7,8 +7,6 @@ import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import * as moment from 'moment';
-import { waitMinutes } from '../../helpers/sdk/wait';
-import { getPriceRaw } from '../../helpers/sdk/price';
 
 @Injectable()
 export class FlightService {
@@ -266,11 +264,11 @@ export class FlightService {
         dateRange: {
           startDate: {
             month: query?.month || new Date().getMonth() + 1,
-            year: query?.year || 2024,
+            year: query?.year || moment().year(),
           },
           endDate: {
             month: query?.endMonth || query?.month || new Date().getMonth() + 1,
-            year: query?.endYear || query?.year || 2024,
+            year: query?.endYear || query?.year || moment().year(),
           },
         },
       },
@@ -294,11 +292,11 @@ export class FlightService {
         dateRange: {
           startDate: {
             month: query?.month || new Date().getMonth() + 1,
-            year: query?.year || 2024,
+            year: query?.year || moment().year(),
           },
           endDate: {
             month: query?.endMonth || query?.month || new Date().getMonth() + 1,
-            year: query?.endYear || query?.year || 2024,
+            year: query?.endYear || query?.year || moment().year(),
           },
         },
       });
@@ -307,11 +305,11 @@ export class FlightService {
     console.log({
       startDate: {
         month: query?.month || new Date().getMonth() + 1,
-        year: query?.year || 2024,
+        year: query?.year || moment().year(),
       },
       endDate: {
         month: query?.endMonth || query?.month || new Date().getMonth() + 1,
-        year: query?.endYear || query?.year || 2024,
+        year: query?.endYear || query?.year || moment().year(),
       },
     });
 

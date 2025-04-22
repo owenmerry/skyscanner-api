@@ -9,6 +9,7 @@ import type {
 import { skyscanner } from '../../helpers/sdk/flight';
 import { SearchSDK } from '../../helpers/sdk/flight';
 import { getPrice } from '../../helpers/sdk/price';
+import * as moment from 'moment';
 
 @Injectable()
 export class ChatGptService {
@@ -168,11 +169,15 @@ export class ChatGptService {
               },
               dateRange: {
                 startDate: {
-                  year: 2024,
+                  year: moment()
+                    .add(query?.month || new Date().getMonth() + 1, 'months')
+                    .format('YYYY'),
                   month: query?.month || new Date().getMonth() + 1,
                 },
                 endDate: {
-                  year: 2024,
+                  year: moment()
+                    .add(query?.month || new Date().getMonth() + 1, 'months')
+                    .format('YYYY'),
                   month: query?.month || new Date().getMonth() + 1,
                 },
               },
@@ -194,11 +199,15 @@ export class ChatGptService {
               },
               dateRange: {
                 startDate: {
-                  year: 2024,
+                  year: moment()
+                    .add(query?.month || new Date().getMonth() + 1, 'months')
+                    .format('YYYY'),
                   month: query?.month || new Date().getMonth() + 1,
                 },
                 endDate: {
-                  year: 2024,
+                  year: moment()
+                    .add(query?.month || new Date().getMonth() + 1, 'months')
+                    .format('YYYY'),
                   month: query?.month || new Date().getMonth() + 1,
                 },
               },
