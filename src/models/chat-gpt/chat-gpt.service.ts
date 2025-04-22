@@ -295,7 +295,7 @@ export class ChatGptService {
         
         [See Flight Search](https://www.skyscanner.net/transport/flights/${
           flightData.best.legs[0].fromIata
-        }/${flightData.best.legs[0].toIata}/23${addZero(
+        }/${flightData.best.legs[0].toIata}/25${addZero(
         flightData.best.legs[0].departure.split('/')[1],
       )}${addZero(flightData.best.legs[0].departure.split('/')[0])}${
         isReturn
@@ -395,9 +395,9 @@ export class ChatGptService {
         !!query.to ? flight.date : ''
       }](https://www.skyscanner.net/transport/flights/${
         flight.originPlace.iata
-      }/${flight.destinationPlace.iata}/230${
+      }/${flight.destinationPlace.iata}/250${
         flight.quotes[0].outboundLeg.departureDateTime.month
-      }${flight?.quotes[0]?.outboundLeg?.departureDateTime?.day}/230${
+      }${flight?.quotes[0]?.outboundLeg?.departureDateTime?.day}/250${
         flight?.quotes[0]?.inboundLeg?.departureDateTime?.month
       }${flight?.quotes[0]?.inboundLeg?.departureDateTime?.day}/)
       `;
