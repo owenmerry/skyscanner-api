@@ -12,7 +12,7 @@ import { ChatGPTController } from './models/chat-gpt/chat-gpt.controller';
 import { ChatGptService } from './models/chat-gpt/chat-gpt.service';
 import { ContentController } from './models/content/content.controller';
 import { ContentService } from './models/content/content.service';
-import { FlightCache, FlightHistoryPrice } from './models/flight/flight.entity';
+import { FlightCache, FlightHistoryPrice, TripDetails } from './models/flight/flight.entity';
 import { FlightModule } from './models/flight/flight.module';
 import { ServiceModule } from './models/service/service.module';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -44,7 +44,7 @@ import { WebScraperService } from './models/web-scraper/web-scraper.service';
       logging: true,
       synchronize: true, // shouldn't really be used in production - may lose data
       ssl: true,
-      entities: [FlightCache, FlightHistoryPrice, LeaderBoard],
+      entities: [FlightCache, FlightHistoryPrice, LeaderBoard, TripDetails],
       extra: {
         ssl: {
           rejectUnauthorized: false,

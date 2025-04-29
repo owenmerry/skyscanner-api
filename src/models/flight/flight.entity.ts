@@ -44,3 +44,24 @@ export class FlightHistoryPrice {
   @UpdateDateColumn()
   updated_at: Date;
 }
+
+@Entity()
+export class TripDetails {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  cityEnityId: string;
+
+  @Column()
+  editHash: string;
+
+  @Column({ type: 'jsonb', nullable: true })
+  trip: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+}

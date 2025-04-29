@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { createApi } from 'unsplash-js';
 import * as nodeFetch from 'node-fetch';
 import { getPriceRaw } from '../../helpers/sdk/price';
+import { createEditKey } from '../../helpers/sdk/hash';
 
 @Module({
   imports: [HttpModule],
@@ -232,5 +233,60 @@ export class FlightController {
     const res = await this.flightService.geoNearest(query);
 
     return res.data;
+  }
+
+  @Get('trip/details/create')
+  @ApiExcludeEndpoint()
+  async createTripDetails(
+    @Query()
+    query: {
+      cityEntityId: string;
+      trip: any;
+    },
+  ): Promise<any> {
+    const hash = createEditKey();
+    const res = await this.flightService.createTripDetails({
+      cityEnityId: query.cityEntityId,
+      editHash: hash,
+      trip: JSON.stringify(query.trip),
+    });
+
+    return res;
+  }
+
+  @Get('trip/details/edit')
+  @ApiExcludeEndpoint()
+  async editTripDetails(
+    @Query()
+    query: {
+      id: number;
+      editHash: string;
+      cityEntityId: string;
+      trip: any;
+    },
+  ): Promise<any> {
+    const res = await this.flightService.editTripDetails({
+      id: query.id,
+      cityEnityId: query.cityEntityId,
+      editHash: query.editHash,
+      trip: JSON.stringify(query.trip),
+    });
+
+    return res;
+  }
+
+  @Get('trip/details/:id')
+  @ApiExcludeEndpoint()
+  async getTripDetails(
+    @Query()
+    query: {
+      id: number;
+    },
+  ): Promise<any> {
+    const res = await this.flightService.getTripDetails({
+      id: query.id,
+    });
+
+    return res;
   }
 }

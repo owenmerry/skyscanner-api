@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FlightCache, FlightHistoryPrice } from './flight.entity';
+import { FlightCache, FlightHistoryPrice, TripDetails } from './flight.entity';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
@@ -18,6 +18,8 @@ export class FlightService {
   constructor(
     @InjectRepository(FlightCache)
     private flightCacheRepository: Repository<FlightCache>,
+    @InjectRepository(TripDetails)
+    private tripDetailsRepository: Repository<TripDetails>,
     @InjectRepository(FlightHistoryPrice)
     private flightHistoryPriceRepository: Repository<FlightHistoryPrice>,
     private readonly httpService: HttpService,
@@ -91,6 +93,51 @@ export class FlightService {
       searchHash,
       created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
     });
+  }
+
+  async createTripDetails({
+    cityEnityId,
+    editHash,
+    trip,
+  }: {
+    cityEnityId: string;
+    editHash: string;
+    trip: string;
+  }) {
+    return await this.tripDetailsRepository.save({
+      cityEnityId,
+      editHash,
+      trip,
+      created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+    });
+  }
+
+  async editTripDetails({
+    id,
+    cityEnityId,
+    editHash,
+    trip,
+  }: {
+    id: number;
+    cityEnityId: string;
+    editHash: string;
+    trip: string;
+  }) {
+    return await this.tripDetailsRepository.update(
+      {
+        id,
+        editHash,
+      },
+      {
+        cityEnityId,
+        editHash,
+        trip,
+      },
+    );
+  }
+
+  async getTripDetails({ id }: { id: number }) {
+    return await this.tripDetailsRepository.findOne({ where: { id } });
   }
 
   async getCache({ searchHash }: { searchHash: string }) {
