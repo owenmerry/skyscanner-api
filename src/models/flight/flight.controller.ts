@@ -296,14 +296,9 @@ export class FlightController {
 
   @Get('trip/details/:id')
   @ApiExcludeEndpoint()
-  async getTripDetails(
-    @Query()
-    query: {
-      id: number;
-    },
-  ): Promise<any> {
+  async getTripDetails(@Param() params: { id: number }): Promise<any> {
     const res = await this.flightService.getTripDetails({
-      id: query.id,
+      id: params.id,
     });
 
     return res;
