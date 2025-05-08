@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
@@ -249,6 +249,25 @@ export class FlightController {
       cityEnityId: query.cityEntityId,
       editHash: hash,
       trip: JSON.stringify(query.trip),
+    });
+
+    return res;
+  }
+
+  @Post('trip/details/create')
+  @ApiExcludeEndpoint()
+  async createTripDetailsPost(
+    @Body()
+    body: {
+      cityEntityId: string;
+      trip: any;
+    },
+  ): Promise<any> {
+    const hash = createEditKey();
+    const res = await this.flightService.createTripDetails({
+      cityEnityId: body.cityEntityId,
+      editHash: hash,
+      trip: JSON.stringify(body.trip),
     });
 
     return res;
