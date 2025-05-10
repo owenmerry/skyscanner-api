@@ -140,6 +140,10 @@ export class FlightService {
     return await this.tripDetailsRepository.findOne({ where: { id } });
   }
 
+  async getAllTripDetails() {
+    return await this.tripDetailsRepository.findBy({});
+  }
+
   async getCache({ searchHash }: { searchHash: string }) {
     return await this.flightCacheRepository.findOne({
       where: { searchHash },

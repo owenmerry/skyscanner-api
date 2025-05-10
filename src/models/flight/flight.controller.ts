@@ -303,4 +303,12 @@ export class FlightController {
 
     return res;
   }
+
+  @Get('trip/details/all')
+  @ApiExcludeEndpoint()
+  async getAllTripDetails(): Promise<any> {
+    const res = await this.flightService.getAllTripDetails();
+
+    return res;
+  }
 }
