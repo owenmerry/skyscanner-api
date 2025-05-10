@@ -141,7 +141,7 @@ export class FlightService {
   }
 
   async getAllTripDetails() {
-    return await this.tripDetailsRepository.findBy({});
+    return await this.tripDetailsRepository.find();
   }
 
   async getCache({ searchHash }: { searchHash: string }) {
