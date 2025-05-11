@@ -96,16 +96,16 @@ export class FlightService {
   }
 
   async createTripDetails({
-    cityEnityId,
+    cityEntityId,
     editHash,
     trip,
   }: {
-    cityEnityId: string;
+    cityEntityId: string;
     editHash: string;
     trip: string;
   }) {
     return await this.tripDetailsRepository.save({
-      cityEnityId,
+      cityEntityId,
       editHash,
       trip,
       created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -114,12 +114,12 @@ export class FlightService {
 
   async editTripDetails({
     id,
-    cityEnityId,
     editHash,
+    cityEntityId,
     trip,
   }: {
     id: number;
-    cityEnityId: string;
+    cityEntityId: string;
     editHash: string;
     trip: string;
   }) {
@@ -129,8 +129,7 @@ export class FlightService {
         editHash,
       },
       {
-        cityEnityId,
-        editHash,
+        cityEntityId,
         trip,
       },
     );
@@ -141,7 +140,11 @@ export class FlightService {
   }
 
   async getAllTripDetails() {
-    return await this.tripDetailsRepository.find();
+    return await this.tripDetailsRepository.find({
+      order: {
+        created_at: 'DESC',
+      },
+    });
   }
 
   async getCache({ searchHash }: { searchHash: string }) {

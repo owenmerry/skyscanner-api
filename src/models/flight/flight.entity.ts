@@ -51,7 +51,7 @@ export class TripDetails {
   id: number;
 
   @Column()
-  cityEnityId: string;
+  cityEntityId: string;
 
   @Column()
   editHash: string;

@@ -246,7 +246,7 @@ export class FlightController {
   ): Promise<any> {
     const hash = createEditKey();
     const res = await this.flightService.createTripDetails({
-      cityEnityId: query.cityEntityId,
+      cityEntityId: query.cityEntityId,
       editHash: hash,
       trip: JSON.stringify(query.trip),
     });
@@ -265,7 +265,7 @@ export class FlightController {
   ): Promise<any> {
     const hash = createEditKey();
     const res = await this.flightService.createTripDetails({
-      cityEnityId: body.cityEntityId,
+      cityEntityId: body.cityEntityId,
       editHash: hash,
       trip: JSON.stringify(body.trip),
     });
@@ -273,7 +273,7 @@ export class FlightController {
     return res;
   }
 
-  @Get('trip/details/edit')
+  @Get('trip/details/update')
   @ApiExcludeEndpoint()
   async editTripDetails(
     @Query()
@@ -286,10 +286,18 @@ export class FlightController {
   ): Promise<any> {
     const res = await this.flightService.editTripDetails({
       id: query.id,
-      cityEnityId: query.cityEntityId,
+      cityEntityId: query.cityEntityId,
       editHash: query.editHash,
       trip: JSON.stringify(query.trip),
     });
+
+    return res;
+  }
+
+  @Get('trip/details/all')
+  @ApiExcludeEndpoint()
+  async getAllTripDetails(): Promise<any> {
+    const res = await this.flightService.getAllTripDetails();
 
     return res;
   }
@@ -300,14 +308,6 @@ export class FlightController {
     const res = await this.flightService.getTripDetails({
       id: params.id,
     });
-
-    return res;
-  }
-
-  @Get('trip/details/all')
-  @ApiExcludeEndpoint()
-  async getAllTripDetails(): Promise<any> {
-    const res = await this.flightService.getAllTripDetails();
 
     return res;
   }
