@@ -173,8 +173,24 @@ export class FlightController {
   @ApiExcludeEndpoint()
   async getAutoSuggestFlights(
     @Param() params: { search: string },
+    @Query() query: { types: string },
   ): Promise<any> {
-    const res = await this.flightService.autoSuggestFlights(params.search);
+    const res = await this.flightService.autoSuggestFlights(params.search, {
+      types: query.types,
+    });
+
+    return res.data;
+  }
+
+  @Get('/autosuggest/hotels/:search')
+  @ApiExcludeEndpoint()
+  async getAutoSuggestHotels(
+    @Param() params: { search: string },
+    @Query() query: { types: string },
+  ): Promise<any> {
+    const res = await this.flightService.autoSuggestHotels(params.search, {
+      types: query.types,
+    });
 
     return res.data;
   }

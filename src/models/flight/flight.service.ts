@@ -430,7 +430,13 @@ export class FlightService {
     );
   }
 
-  autoSuggestFlights(search: string): Promise<AxiosResponse<any>> {
+  autoSuggestFlights(
+    search: string,
+    { types }: { types: string },
+  ): Promise<AxiosResponse<any>> {
+    const entityTypes = types
+      ? types.split(',')
+      : ['PLACE_TYPE_CITY', 'PLACE_TYPE_AIRPORT'];
     return this.httpService.axiosRef.post(
       `${this.SKYSCANNER_API_URL}/autosuggest/flights`,
       {
@@ -438,7 +444,32 @@ export class FlightService {
           market: 'UK',
           locale: 'en-GB',
           searchTerm: search,
-          includedEntityTypes: ['PLACE_TYPE_CITY', 'PLACE_TYPE_AIRPORT'],
+          includedEntityTypes: entityTypes,
+        },
+      },
+      {
+        headers: {
+          'x-api-key': this.SKYSCANNER_API_KEY,
+        },
+      },
+    );
+  }
+
+  autoSuggestHotels(
+    search: string,
+    { types }: { types: string },
+  ): Promise<AxiosResponse<any>> {
+    const entityTypes = types
+      ? types.split(',')
+      : ['PLACE_TYPE_CITY', 'PLACE_TYPE_AIRPORT'];
+    return this.httpService.axiosRef.post(
+      `${this.SKYSCANNER_API_URL}/autosuggest/hotels`,
+      {
+        query: {
+          market: 'UK',
+          locale: 'en-GB',
+          searchTerm: search,
+          includedEntityTypes: entityTypes,
         },
       },
       {
