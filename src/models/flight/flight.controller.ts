@@ -56,20 +56,21 @@ export class FlightController {
       ...query,
       returnDate: query.return,
     });
-    const cache = await this.flightService.getCache({ searchHash });
-    if (cache) {
-      const res = await this.flightService.flightsLivePricesPoll(
-        cache.sessionToken,
-      );
+    // const cache = await this.flightService.getCache({ searchHash });
+    // const cache = await this.flightService.getCache({ searchHash });
+    // if (cache) {
+    //   const res = await this.flightService.flightsLivePricesPoll(
+    //     cache.sessionToken,
+    //   );
 
-      return res.data;
-    }
+    //   return res.data;
+    // }
 
     const res = await this.flightService.flightsLivePricesCreate(query);
-    await this.flightService.createCache({
-      sessionToken: res.data.sessionToken,
-      searchHash,
-    });
+    // await this.flightService.createCache({
+    //   sessionToken: res.data.sessionToken,
+    //   searchHash,
+    // });
 
     if (
       query.mode === 'complete' &&

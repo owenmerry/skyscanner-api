@@ -14,6 +14,7 @@ export class FlightService {
   SKYSCANNER_API_KEY = '';
   SKYSCANNER_HOTEL_API_URL = '';
   SKYSCANNER_HOTEL_API_KEY = '';
+  cache = false;
 
   constructor(
     @InjectRepository(FlightCache)
