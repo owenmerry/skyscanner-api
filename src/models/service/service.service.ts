@@ -64,152 +64,152 @@ export class ServiceService {
     );
   }
 
-  getGoogleRoutes(query: {
-    originId?: string;
-    originLat: string;
-    originLng: string;
-    originAddress?: string;
-    destinationId?: string;
-    destinationLat: string;
-    destinationLng: string;
-    destinationAddress?: string;
-    travelMode: string;
-    arrivalTime: string;
-  }): Promise<AxiosResponse<any>> {
-    console.log('query', {
-      origin: query.originId
-        ? { placeId: query.originId }
-        : query.originLat && query.originLng
-        ? {
-            location: {
-              latLng: {
-                latitude: query.originLat,
-                longitude: query.originLng,
-              },
-            },
-          }
-        : {
-            address: query.originAddress,
-          },
-      destination: query.destinationId
-        ? { placeId: query.destinationId }
-        : query.destinationLat && query.destinationLng
-        ? {
-            location: {
-              latLng: {
-                latitude: query.destinationLat,
-                longitude: query.destinationLng,
-              },
-            },
-          }
-        : {
-            address: query.destinationAddress,
-          },
-      travelMode: query.travelMode,
-      arrivalTime: query.arrivalTime,
-      computeAlternativeRoutes: true,
-    });
+  // getGoogleRoutes(query: {
+  //   originId?: string;
+  //   originLat: string;
+  //   originLng: string;
+  //   originAddress?: string;
+  //   destinationId?: string;
+  //   destinationLat: string;
+  //   destinationLng: string;
+  //   destinationAddress?: string;
+  //   travelMode: string;
+  //   arrivalTime: string;
+  // }): Promise<AxiosResponse<any>> {
+  //   console.log('query', {
+  //     origin: query.originId
+  //       ? { placeId: query.originId }
+  //       : query.originLat && query.originLng
+  //       ? {
+  //           location: {
+  //             latLng: {
+  //               latitude: query.originLat,
+  //               longitude: query.originLng,
+  //             },
+  //           },
+  //         }
+  //       : {
+  //           address: query.originAddress,
+  //         },
+  //     destination: query.destinationId
+  //       ? { placeId: query.destinationId }
+  //       : query.destinationLat && query.destinationLng
+  //       ? {
+  //           location: {
+  //             latLng: {
+  //               latitude: query.destinationLat,
+  //               longitude: query.destinationLng,
+  //             },
+  //           },
+  //         }
+  //       : {
+  //           address: query.destinationAddress,
+  //         },
+  //     travelMode: query.travelMode,
+  //     arrivalTime: query.arrivalTime,
+  //     computeAlternativeRoutes: true,
+  //   });
 
-    return this.httpService.axiosRef.post(
-      `https://routes.googleapis.com/directions/v2:computeRoutes`,
-      {
-        origin: query.originId
-          ? { placeId: query.originId }
-          : query.originLat && query.originLng
-          ? {
-              location: {
-                latLng: {
-                  latitude: query.originLat,
-                  longitude: query.originLng,
-                },
-              },
-            }
-          : {
-              address: query.originAddress,
-            },
-        destination: query.destinationId
-          ? { placeId: query.destinationId }
-          : query.destinationLat && query.destinationLng
-          ? {
-              location: {
-                latLng: {
-                  latitude: query.destinationLat,
-                  longitude: query.destinationLng,
-                },
-              },
-            }
-          : {
-              address: query.destinationAddress,
-            },
-        travelMode: query.travelMode,
-        arrivalTime: query.arrivalTime,
-        computeAlternativeRoutes: true,
-      },
-      {
-        headers: {
-          accept: 'application/json',
-          'X-Goog-FieldMask':
-            'routes.duration,routes.distanceMeters,routes.legs.stepsOverview,routes.legs.localizedValues',
-          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
-        },
-        validateStatus: function (status) {
-          return status < 500; // Resolve only if the status code is less than 500
-        },
-      },
-    );
-  }
+  //   return this.httpService.axiosRef.post(
+  //     `https://routes.googleapis.com/directions/v2:computeRoutes`,
+  //     {
+  //       origin: query.originId
+  //         ? { placeId: query.originId }
+  //         : query.originLat && query.originLng
+  //         ? {
+  //             location: {
+  //               latLng: {
+  //                 latitude: query.originLat,
+  //                 longitude: query.originLng,
+  //               },
+  //             },
+  //           }
+  //         : {
+  //             address: query.originAddress,
+  //           },
+  //       destination: query.destinationId
+  //         ? { placeId: query.destinationId }
+  //         : query.destinationLat && query.destinationLng
+  //         ? {
+  //             location: {
+  //               latLng: {
+  //                 latitude: query.destinationLat,
+  //                 longitude: query.destinationLng,
+  //               },
+  //             },
+  //           }
+  //         : {
+  //             address: query.destinationAddress,
+  //           },
+  //       travelMode: query.travelMode,
+  //       arrivalTime: query.arrivalTime,
+  //       computeAlternativeRoutes: true,
+  //     },
+  //     {
+  //       headers: {
+  //         accept: 'application/json',
+  //         'X-Goog-FieldMask':
+  //           'routes.duration,routes.distanceMeters,routes.legs.stepsOverview,routes.legs.localizedValues',
+  //         'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
+  //       },
+  //       validateStatus: function (status) {
+  //         return status < 500; // Resolve only if the status code is less than 500
+  //       },
+  //     },
+  //   );
+  // }
 
-  getGoogleAutocomplete(query: {
-    search: string;
-    latitude: number;
-    longitude: number;
-    radius: number;
-  }): Promise<AxiosResponse<any>> {
-    const locationBias =
-      query.latitude && query.longitude && query.radius
-        ? {
-            circle: {
-              center: {
-                latitude: query.latitude,
-                longitude: query.longitude,
-              },
-              radius: query.radius,
-            },
-          }
-        : undefined;
-    return this.httpService.axiosRef.post(
-      `https://places.googleapis.com/v1/places:autocomplete`,
-      {
-        input: query.search,
-        locationBias,
-      },
-      {
-        headers: {
-          accept: 'application/json',
-          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
-        },
-        validateStatus: function (status) {
-          return status < 500; // Resolve only if the status code is less than 500
-        },
-      },
-    );
-  }
+  // getGoogleAutocomplete(query: {
+  //   search: string;
+  //   latitude: number;
+  //   longitude: number;
+  //   radius: number;
+  // }): Promise<AxiosResponse<any>> {
+  //   const locationBias =
+  //     query.latitude && query.longitude && query.radius
+  //       ? {
+  //           circle: {
+  //             center: {
+  //               latitude: query.latitude,
+  //               longitude: query.longitude,
+  //             },
+  //             radius: query.radius,
+  //           },
+  //         }
+  //       : undefined;
+  //   return this.httpService.axiosRef.post(
+  //     `https://places.googleapis.com/v1/places:autocomplete`,
+  //     {
+  //       input: query.search,
+  //       locationBias,
+  //     },
+  //     {
+  //       headers: {
+  //         accept: 'application/json',
+  //         'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
+  //       },
+  //       validateStatus: function (status) {
+  //         return status < 500; // Resolve only if the status code is less than 500
+  //       },
+  //     },
+  //   );
+  // }
 
-  getGooglePlacesDetails(placeId: string): Promise<AxiosResponse<any>> {
-    return this.httpService.axiosRef.get(
-      `https://places.googleapis.com/v1/places/${placeId}`,
-      {
-        headers: {
-          accept: 'application/json',
-          'X-Goog-FieldMask': '*',
-          'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
-        },
-        validateStatus: function (status) {
-          return status < 500; // Resolve only if the status code is less than 500
-        },
-      },
-    );
-  }
+  // getGooglePlacesDetails(placeId: string): Promise<AxiosResponse<any>> {
+  //   return this.httpService.axiosRef.get(
+  //     `https://places.googleapis.com/v1/places/${placeId}`,
+  //     {
+  //       headers: {
+  //         accept: 'application/json',
+  //         'X-Goog-FieldMask': '*',
+  //         'X-Goog-Api-Key': this.GOOGLE_API_KEY_LOCATION,
+  //       },
+  //       validateStatus: function (status) {
+  //         return status < 500; // Resolve only if the status code is less than 500
+  //       },
+  //     },
+  //   );
+  // }
 
   getTripAdvisorLocations(query: {
     searchQuery: string;
