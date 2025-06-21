@@ -52,6 +52,7 @@ export class FlightController {
       mode?: 'complete';
     },
   ): Promise<any> {
+    return false;
     const searchHash = await this.flightService.createHash({
       ...query,
       returnDate: query.return,
@@ -98,6 +99,7 @@ export class FlightController {
       mode?: 'complete';
     },
   ): Promise<any> {
+    return false;
     const res = await this.flightService.flightsLivePricesPoll(params.token);
 
     if (query.from && res.data.status === 'RESULT_STATUS_COMPLETE') {
@@ -158,6 +160,7 @@ export class FlightController {
       return: string;
     },
   ): Promise<any> {
+    return false;
     const searchHash = await this.flightService.createHash({
       ...query,
       returnDate: query.return,
