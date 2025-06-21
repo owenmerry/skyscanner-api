@@ -12,7 +12,11 @@ import { ChatGPTController } from './models/chat-gpt/chat-gpt.controller';
 import { ChatGptService } from './models/chat-gpt/chat-gpt.service';
 import { ContentController } from './models/content/content.controller';
 import { ContentService } from './models/content/content.service';
-import { FlightCache, FlightHistoryPrice, TripDetails } from './models/flight/flight.entity';
+import {
+  FlightCache,
+  FlightHistoryPrice,
+  TripDetails,
+} from './models/flight/flight.entity';
 import { FlightModule } from './models/flight/flight.module';
 import { ServiceModule } from './models/service/service.module';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -20,13 +24,21 @@ import { CarHireModule } from './models/car-hire/car-hire.module';
 //game
 import { LeaderBoard } from './models/game/game.entity';
 import { GameModule } from './models/game/game.module';
-import { GameController } from './models/game/game.controller';
-import { GameService } from './models/game/game.service';
-import { FlightService } from './models/flight/flight.service';
 import { WebScraperService } from './models/web-scraper/web-scraper.service';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60,
+          limit: 10,
+        },
+      ],
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
@@ -63,7 +75,16 @@ import { WebScraperService } from './models/web-scraper/web-scraper.service';
     }),
   ],
   controllers: [AppController, ChatGPTController, ContentController],
-  providers: [AppService, ChatGptService, ContentService, WebScraperService],
+  providers: [
+    AppService,
+    ChatGptService,
+    ContentService,
+    WebScraperService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard, // enables rate limiting globally
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
