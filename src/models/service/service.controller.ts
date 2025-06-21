@@ -28,54 +28,54 @@ export class ServiceController {
     return res.data;
   }
 
-  @Get('service/google/routes')
-  @ApiExcludeEndpoint()
-  async getGoogleRoutes(
-    @Query()
-    query: {
-      originAddress: string;
-      destinationAddress: string;
-      originLat: string;
-      originLng: string;
-      destinationLat: string;
-      destinationLng: string;
-      originId: string;
-      destinationId: string;
-      travelMode: string;
-      arrivalTime: string;
-    },
-  ): Promise<any> {
-    const res = await this.serviceService.getGoogleRoutes(query);
+  // @Get('service/google/routes')
+  // @ApiExcludeEndpoint()
+  // async getGoogleRoutes(
+  //   @Query()
+  //   query: {
+  //     originAddress: string;
+  //     destinationAddress: string;
+  //     originLat: string;
+  //     originLng: string;
+  //     destinationLat: string;
+  //     destinationLng: string;
+  //     originId: string;
+  //     destinationId: string;
+  //     travelMode: string;
+  //     arrivalTime: string;
+  //   },
+  // ): Promise<any> {
+  //   const res = await this.serviceService.getGoogleRoutes(query);
 
-    return res.data;
-  }
-  @Get('service/google/places/autosuggest')
-  @ApiExcludeEndpoint()
-  async getGooglePlacesAutosuggest(
-    @Query()
-    query: {
-      search: string;
-      latitude: number;
-      longitude: number;
-      radius: number;
-    },
-  ): Promise<any> {
-    const res = await this.serviceService.getGoogleAutocomplete(query);
+  //   return res.data;
+  // }
+  // @Get('service/google/places/autosuggest')
+  // @ApiExcludeEndpoint()
+  // async getGooglePlacesAutosuggest(
+  //   @Query()
+  //   query: {
+  //     search: string;
+  //     latitude: number;
+  //     longitude: number;
+  //     radius: number;
+  //   },
+  // ): Promise<any> {
+  //   const res = await this.serviceService.getGoogleAutocomplete(query);
 
-    return res.data;
-  }
+  //   return res.data;
+  // }
 
-  @Get('service/google/places/details/:placeId')
-  @ApiExcludeEndpoint()
-  async getGooglePlacesDetails(
-    @Param() params: { placeId: string },
-  ): Promise<any> {
-    const res = await this.serviceService.getGooglePlacesDetails(
-      params.placeId,
-    );
+  // @Get('service/google/places/details/:placeId')
+  // @ApiExcludeEndpoint()
+  // async getGooglePlacesDetails(
+  //   @Param() params: { placeId: string },
+  // ): Promise<any> {
+  //   const res = await this.serviceService.getGooglePlacesDetails(
+  //     params.placeId,
+  //   );
 
-    return res.data;
-  }
+  //   return res.data;
+  // }
 
   @Get('service/tripadvisor/locations')
   @ApiExcludeEndpoint()
