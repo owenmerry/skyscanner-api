@@ -52,7 +52,7 @@ export class FlightController {
       mode?: 'complete';
     },
   ): Promise<any> {
-    throw new Error('Turned off for now');
+    throw new Error('Error');
     const searchHash = await this.flightService.createHash({
       ...query,
       returnDate: query.return,
@@ -99,7 +99,7 @@ export class FlightController {
       mode?: 'complete';
     },
   ): Promise<any> {
-    throw new Error('Turned off for now');
+    throw new Error('Error');
     const res = await this.flightService.flightsLivePricesPoll(params.token);
 
     if (query.from && res.data.status === 'RESULT_STATUS_COMPLETE') {
@@ -140,7 +140,7 @@ export class FlightController {
       groupType?: string;
     },
   ): Promise<any> {
-    throw new Error('Turned off for now');
+    throw new Error('Error');
     console.log('check', {
       endMonth: query.endMonth,
       endYear: query.endYear,
@@ -161,7 +161,7 @@ export class FlightController {
       return: string;
     },
   ): Promise<any> {
-    throw new Error('Turned off for now');
+    throw new Error('Error');
     const searchHash = await this.flightService.createHash({
       ...query,
       returnDate: query.return,
@@ -214,7 +214,7 @@ export class FlightController {
       entityId: string;
     },
   ): Promise<any> {
-        throw new Error('Turned off for now');
+        throw new Error('Error');
     const res = await this.flightService.searchHotels(query);
     const data = res.data;
 
@@ -229,7 +229,7 @@ export class FlightController {
       query: string;
     },
   ): Promise<any> {
-        throw new Error('Turned off for now');
+        throw new Error('Error');
     // on your node server
     const serverApi = createApi({
       accessKey: this.UNSPLASH_ACCESS_KEY,
